@@ -1,0 +1,52 @@
+﻿@page "/usuario"
+@inject HttpClient Http;
+@using Radzen
+
+<h3>Usuarios</h3>
+<RadzenFieldset Text=""> 
+    <RadzenDataGrid @ref="ordersGrid" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" 
+            Data="@userlist" TItem="Usuario">
+            <Columns>
+                <RadzenDataGridColumn Width="40px" TItem="Usuario" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+                     <Template Context="data">
+                        @(userlist.IndexOf(data) + 1)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Usuario" Property="Email" Title="Email" Filterable="false">
+                    <Template Context="user">
+                        <p>@user.Email</p>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Usuario" Property="UserName" Title="Nombre" Filterable="false">
+                   <Template Context="user">
+                        <p>@user.UserName</p>
+                   </Template>
+                </RadzenDataGridColumn>                
+                <RadzenDataGridColumn TItem="Usuario" Property="Name" Title="Rol" Filterable="false">
+                   <Template Context="user">
+                        <p>@user.UsuarioRoles.FirstOrDefault()?.Rol.Name</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Width="150px" TItem="Usuario" Property="ID" Title="Opciones" Filterable="false" Sortable="false">
+                    <Template Context="user">
+                        <RadzenButton  Text="" Icon="edit" ButtonStyle="ButtonStyle.Warning" />
+                        <RadzenButton  Text="" Icon="delete" ButtonStyle="ButtonStyle.Danger"  />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+    </RadzenDataGrid>
+</RadzenFieldset>   
+@code {
+    RadzenDataGrid<Usuario> ordersGrid;
+    private Usuario user { get; set; }
+    public IList<Usuario> userlist { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = new Usuario();
+        userlist = new List<Usuario>();
+        userlist = await Http.GetFromJsonAsync<List<Usuario>>("https://localhost:7184/api/Usuario");
+        userlist = userlist.ToList();
+    }
+
+}
