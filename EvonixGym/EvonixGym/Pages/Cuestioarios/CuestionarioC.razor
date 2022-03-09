@@ -25,6 +25,38 @@
             }
         }
   </RadzenCard>
+  <RadzenCard>
+  <h3>Asignar Perimetros</h3>
+    <RadzenDropDown AllowClear="true" TValue="Perimetro" Class="w-100" 
+                                            Data=@(perimetros)  TextProperty="Nombre"
+                                           Change=@(args =>asignarPerimetro(args))  />
+     @if(misPerimetros.Count > 0)
+        {
+            
+            @foreach(var c in misPerimetros)
+            { 
+                <li>@c.Nombre</li>
+                 <RadzenButton Click=@(args => borrarPerimetro(@c)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+                
+            }
+        }
+  </RadzenCard>
+  <RadzenCard>
+  <h3>Asignar Composicion</h3>
+    <RadzenDropDown AllowClear="true" TValue="ComposicionCorporal" Class="w-100" 
+                                            Data=@(composicionC)  TextProperty="Nombre"
+                                           Change=@(args =>asignarComposicion(args))  />
+     @if(misComposicionC.Count > 0)
+        {
+            
+            @foreach(var c in misComposicionC)
+            { 
+                <li>@c.Nombre</li>
+                 <RadzenButton Click=@(args => borrarComposicion(@c)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+                
+            }
+        }
+  </RadzenCard>
     <ul>   
         @foreach (var p in preguntas)
         {
@@ -68,17 +100,27 @@
 
     private List<Pregunta> preguntas = new();
     private List<Cliente> clientes = new();
+    private List<Perimetro> perimetros = new();
+    private List<Perimetro> misPerimetros = new();
+    private List<ComposicionCorporal> composicionC = new();
+    private List<ComposicionCorporal> misComposicionC = new();
     private List<Cliente> misClientes = new();
     private CuestionarioClientes cuestclientes = new();
     private Cliente cliente = new Cliente();
     private Pregunta pregunta = new Pregunta();
     private List<Archivo> imageDataUrls = new ();
     private Archivo imageDataUrl = new();
+    private Perimetro perimetro = new Perimetro();
+    private ComposicionCorporal cc = new ComposicionCorporal();
 
     protected override async Task OnInitializedAsync()
     {
         clientes = await Http.GetFromJsonAsync<List<Cliente>>("https://localhost:7184/api/Clientes");
         clientes = clientes.ToList();
+        perimetros = await Http.GetFromJsonAsync<List<Perimetro>>("https://localhost:7184/api/Perimetroes");
+        perimetros = perimetros.ToList();
+        composicionC = await Http.GetFromJsonAsync<List<ComposicionCorporal>>("https://localhost:7184/api/ComposicionCorporals");
+        composicionC = composicionC.ToList();
 
 
     }
@@ -93,6 +135,28 @@
         }
         cliente = new Cliente();
     }
+    public void asignarPerimetro(Object o)
+    {
+
+        Perimetro c = (Perimetro) o;
+
+        if (c != null && !misPerimetros.Contains(c))
+        {
+            misPerimetros.Add(c);
+        }
+
+    }
+    public void asignarComposicion(Object o)
+    {
+
+        ComposicionCorporal c = (ComposicionCorporal) o;
+
+        if (c != null && !misComposicionC.Contains(c))
+        {
+            misComposicionC.Add(c);
+        }
+
+    }
 
     public void borrarCliente(Cliente id)
     {
@@ -101,6 +165,22 @@
             misClientes.Remove(id);
         }
     }
+    public void borrarPerimetro(Perimetro id)
+    {
+        if (id != null)
+        {
+            misPerimetros.Remove(id);
+        }
+    }
+
+    public void borrarComposicion(ComposicionCorporal id)
+    {
+        if (id != null)
+        {
+            misComposicionC.Remove(id);
+        }
+    }
+
     public void borrarPregunta(Pregunta pregunta)
     {
         preguntas.Remove(pregunta);
@@ -182,9 +262,27 @@
             foreach(var c in misClientes) {
                 cuestclientes.IdCliente = c.IdCliente;
                 cuestclientes.IdCuestionario = cuestionario.IdCuestionario;
-                Console.Write("11111111111111111111111111111111111111111111111111111111");
                 result = await Http.PostAsJsonAsync("https://localhost:7184/api/CuestionarioClientes", cuestclientes);
-            }
+
+                foreach(var m in misComposicionC)
+                {
+                    ComposicionCorporalClient comclient = new ComposicionCorporalClient();
+                    comclient.IdComposicion = m.IdComposicion;
+                    comclient.Cliente = c;
+
+                    result = await Http.PostAsJsonAsync("https://localhost:7184/api/ComposicionCorporalClients", comclient);
+
+                }
+                foreach(var m in misPerimetros)
+                {
+                    PerimetroDelCliente p = new PerimetroDelCliente();
+                    p.Cliente = c;
+                    p.IdCliente = c.IdCliente;
+                    p.IdPerimetro = m.IdPerimetro;
+                    p.IdPerimetroNavigation = m;
+                    result = await Http.PostAsJsonAsync("https://localhost:7184/api/PerimetroDelClientes", p);
+                }
+        }
         }
         if (preguntas.Count() > 0)
         {
