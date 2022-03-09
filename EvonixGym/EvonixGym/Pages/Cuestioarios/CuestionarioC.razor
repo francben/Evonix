@@ -282,12 +282,14 @@
                     p.IdPerimetroNavigation = m;
                     result = await Http.PostAsJsonAsync("https://localhost:7184/api/PerimetroDelClientes", p);
                 }
+            }
         }
-        }
+
         if (preguntas.Count() > 0)
         {
             foreach (var p in preguntas)
             {
+                p.IdCuestionario = cuestionario.IdCuestionario;
                 result = await Http.PostAsJsonAsync("https://localhost:7184/api/Preguntas", p);
                 pregunta = await result.Content.ReadFromJsonAsync<Pregunta>();
                 if (imageDataUrls.Count() > 0)
