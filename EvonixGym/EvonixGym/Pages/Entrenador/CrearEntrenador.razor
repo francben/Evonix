@@ -1,0 +1,56 @@
+﻿@page "/crearEntrenador"
+@using EvonixGym.Modelos
+@inject HttpClient Http;
+
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Nombre"  @bind-Value=entrenador.Nombre/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Apellido"  @bind-Value=entrenador.Apellido/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@user.UserName"  @bind-Value=user.UserName/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@user.PasswordHash"  @bind-Value=user.PasswordHash/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Dni"  @bind-Value=entrenador.Dni/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Telefono"  @bind-Value=entrenador.Telefono/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Direccion"  @bind-Value=entrenador.Direccion/>
+</div>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@entrenador.Telefono"  @bind-Value=entrenador.Telefono/>
+</div>
+    <div class="col-lg-2 p-3">
+       <RadzenButton Text="Guardar" Class="w-100" Click=@guardarEntrenador/>
+    </div>
+
+
+
+
+
+@code{
+    private Entrenador entrenador = new Entrenador();
+    private Usuario user = new Usuario();
+    private DateTime datenow = DateTime.Now.Date;
+
+    public async Task guardarEntrenador()
+    {
+        entrenador.FechaAlta = datenow;
+        HttpResponseMessage result = null;
+        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Usuario", user);
+        //var nuevoUser = await result.Content.ReadFromJsonAsync<Usuario>();
+        //entrenador.IdUsuario = nuevoUser.Id;
+        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Entrenadores", entrenador);
+
+
+        
+        return;
+    }
+
+}

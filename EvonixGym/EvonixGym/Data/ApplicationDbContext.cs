@@ -1,4 +1,5 @@
 ﻿using EvonixGym.Data.Modelos;
+using EvonixGym.Modelos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -51,8 +52,48 @@ namespace EvonixGym.Data
                 .WithOne(r => r.Cliente)
                 .HasForeignKey(ri => ri.IdCliente)
                 .IsRequired();
+                b.HasMany(ro => ro.ComposicionCorporalClient)
+               .WithOne(r => r.Cliente)
+               .HasForeignKey(ri => ri.IdCcCliente)
+               .IsRequired();
+                b.HasMany(ro => ro.PerimetroDelClientes)
+              .WithOne(r => r.Cliente)
+              .HasForeignKey(ri => ri.IdCliente)
+              .IsRequired();
+
             });
-            
+            builder.Entity<ComposicionCorporal>(b =>
+            {
+                b.HasMany(ro => ro.ComposicionCorporalClients)
+                .WithOne(r => r.IdComposicionNavigation)
+                .HasForeignKey(ri => ri.IdComposicion)
+                .IsRequired();
+            });
+            builder.Entity<Perimetro>(b =>
+            {
+                b.HasMany(ro => ro.PerimetroDelClientes)
+                .WithOne(r => r.IdPerimetroNavigation)
+                .HasForeignKey(ri => ri.IdPerimetro)
+                .IsRequired();
+                b.HasMany(ro => ro.PerimetrosCuestionario)
+               .WithOne(r => r.Perimetro)
+               .HasForeignKey(ri => ri.IdPerimetro)
+               .IsRequired();
+
+            });
+            builder.Entity<Cuestionario>(b =>
+            {
+                b.HasMany(ro => ro.PerimetrosCuestionarios)
+                .WithOne(r => r.IdCuestionarioNavigation)
+                .HasForeignKey(ri => ri.IdCuestionario)
+                .IsRequired();
+            });
+
+
+
+
+
+
             Seed(builder);
         }
         private void Seed(ModelBuilder builder)
@@ -117,5 +158,21 @@ namespace EvonixGym.Data
         public DbSet<UsuarioClientes> UsuarioClientes { get; set; }
         public DbSet<Entrenador> Entrenadores { get; set; }
         public DbSet<UsuarioEntrenadores> UsuarioEntrenadores { get; set; }
+        public DbSet<Archivo> Archivos { get; set; }
+        public DbSet<Archivoresp> archivoresps { get; set; }
+        public DbSet<ComposicionCorporal> composicionCorporals { get; set; }
+        public DbSet<ComposicionCorporalClient> composicionCorporalClients { get; set; }
+        public DbSet<Cuestionario> Cuestionarios { get; set; }
+        public DbSet<CuestionarioClientes> CuestionarioClientes { get; set; }
+        public DbSet<Perimetro> Perimetros { get; set; }
+        public DbSet<PerimetroDelCliente> perimetroDelClientes { get; set; }
+        public DbSet<PerimetrosCuestionario> PerimetrosCuestionarios { get; set; }
+        public DbSet<Pregunta> Preguntas { get; set; }
+        public DbSet<Respuestum> Respuesta { get; set; }
+
+
+
+
+
     }
 }

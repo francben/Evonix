@@ -1,0 +1,194 @@
+﻿@using EvonixGym.Modelos
+@page "/cuestionario/{idEntrenador:int}"
+@inject HttpClient Http;
+
+  <RadzenCard class="m-3">
+           <RadzenTextBox placeholder="Nombre del cuestionario"  Class="w-300" Data= "@cuestionario.Nombre"  @bind-Value=cuestionario.Nombre/>
+           <RadzenTextBox placeholder="Desripcion"  Class="w-300" Data= "@cuestionario.Descripcion"  @bind-Value=cuestionario.Descripcion/>
+
+       </RadzenCard>
+
+  <input @bind ="cliente.Nombre" />
+    <RadzenButton Click=@(args => asignarCliente(cliente)) Text="Asignar cuestionario" ButtonStyle="ButtonStyle.Success" />
+      @if(clientes.Count > 0)
+        {
+            <span>Este cuestionario se asignara a:</span>
+            @foreach(var c in clientes)
+            { 
+                <li>@c.Nombre</li>
+                 <RadzenButton Click=@(args => borrarCliente(@c)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+                
+            }
+        }
+    <ul>   
+        @foreach (var p in preguntas)
+        {
+            @if (!p.Pregunta1.Equals(""))
+            {
+                <li>@p.Pregunta1</li>
+                @if (p.imagenes != null)
+                {
+                    @foreach (var imageDataUrl in p.imagenes)
+                    {
+                        <img class="rounded m-1" src= "@imageDataUrl.Image" />
+                            <a>@imageDataUrl.descripcion</a>
+                    }
+                }
+            <RadzenButton Click=@(args => borrarPregunta(p)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+            }
+        }
+
+    </ul>
+
+    <RadzenCard> 
+         <span>Nueva Pregunta</span>
+    <InputFile OnChange=" OnInputFileChange" multiple /> 
+    <RadzenTextBox placeholder="Agregar link de video"  Class="w-300" Data= "@imageDataUrl.LinkVideo"  @bind-Value=imageDataUrl.LinkVideo/>
+    <RadzenTextArea Class="w-100"  @bind-Value=imageDataUrl.descripcion placeholder="Descripcion de archivos"/>
+    <input  placeholder="nueva pregunta.." @bind="pregunta.Pregunta1"/>
+    <button type ="submit"@onclick="Guardar">Confirmar</button>
+</RadzenCard>
+<RadzenCard>
+    <button type ="submit"@onclick="guardarCuestionario">Guardar Cuestionario</button>
+</RadzenCard>
+
+
+@code{
+
+    [Parameter]
+    public int idEntrenador { get; set; } = 0; 
+
+    private Cuestionario cuestionario = new Cuestionario();
+
+    private List<Pregunta> preguntas = new();
+    private List<Cliente> clientes = new();
+    private CuestionarioClientes cuestclientes = new();
+    private Cliente cliente = new Cliente();
+    private Pregunta pregunta = new Pregunta();
+    private List<Archivo> imageDataUrls = new ();
+    private Archivo imageDataUrl = new();
+
+    public void asignarCliente(Object o)
+    {
+
+        Cliente c = (Cliente) o;
+
+        if (c != null && !clientes.Contains(c))
+        {
+            clientes.Add(c);
+        }
+        cliente = new Cliente();
+    }
+
+    public void borrarCliente(Cliente id)
+    {
+        if (id != null)
+        {
+            clientes.Remove(id);
+        }
+    }
+    public void borrarPregunta(Pregunta pregunta)
+    {
+        preguntas.Remove(pregunta);
+    }
+
+
+
+
+
+    public async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var maxAllowedFiles = 3;
+        var format = "image/png";
+
+        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
+        {
+
+
+            var resizeFile = await imageFile.RequestImageFileAsync(format, 200, 200);
+            var buffer = new byte[resizeFile.Size];
+
+            await resizeFile.OpenReadStream().ReadAsync(buffer);
+
+            imageDataUrl = new();
+            imageDataUrl.Image = $"data:{format}; base64,{Convert.ToBase64String(buffer)}";
+
+            if (imageDataUrl != null)
+            {
+                imageDataUrls.Add(imageDataUrl);
+
+                pregunta.imagenes = imageDataUrls;
+
+                //  imagenCargada = true;
+            }
+        }
+
+    }
+
+
+    private async void Guardar()
+    {
+        if (!pregunta.Pregunta1.Equals(""))
+        {
+            if (imageDataUrls.Count > 0 && imageDataUrl.Image!=null)
+            {
+                pregunta.imagenes = imageDataUrls;
+
+            }
+            preguntas.Add(pregunta);
+
+            pregunta = new Pregunta();
+
+            imageDataUrls = new List<Archivo>();
+
+            //  preguntaEnviada = false;
+
+        }
+
+
+    }
+    public async Task guardarCuestionario()
+    {
+        cuestionario.IdEntrenador = idEntrenador;
+
+        HttpResponseMessage result = null;
+        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Cuestionarios", cuestionario);
+        cuestionario = await result.Content.ReadFromJsonAsync<Cuestionario>();
+
+
+        if(clientes.Count()>0){
+            foreach(var c in clientes) {
+                cuestclientes.IdCliente = c.IdCliente;
+                cuestclientes.IdCuestionario = cuestionario.IdCuestionario;
+                result = await Http.PostAsJsonAsync("https://localhost:7184/api/CuestionariosClientes", cuestclientes);
+            }
+        }
+        if (preguntas.Count() > 0)
+        {
+            foreach (var p in preguntas)
+            {
+                result = await Http.PostAsJsonAsync("https://localhost:7184/api/Preguntas", p);
+                pregunta = await result.Content.ReadFromJsonAsync<Pregunta>();
+                if (imageDataUrls.Count() > 0)
+                {
+                    foreach(var i in imageDataUrls)
+                    {
+                        i.IdPregunta = pregunta.IdPreguntas;
+                        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Archivoes", i);
+                    }
+
+
+                }
+            }
+
+        }
+
+        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Clientes", cliente);
+        cuestionario = new Cuestionario();
+        pregunta = new Pregunta();
+        imageDataUrls = new();
+
+        return;
+    }
+
+}
