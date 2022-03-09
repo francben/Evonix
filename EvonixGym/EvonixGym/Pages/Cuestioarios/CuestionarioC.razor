@@ -1,25 +1,30 @@
 ﻿@using EvonixGym.Modelos
-@page "/cuestionario/{idEntrenador:int}"
+@page "/cuestionario/{idEntrenador:int}/{tipo:int}"
 @inject HttpClient Http;
 
   <RadzenCard class="m-3">
-           <RadzenTextBox placeholder="Nombre del cuestionario"  Class="w-300" Data= "@cuestionario.Nombre"  @bind-Value=cuestionario.Nombre/>
-           <RadzenTextBox placeholder="Desripcion"  Class="w-300" Data= "@cuestionario.Descripcion"  @bind-Value=cuestionario.Descripcion/>
-
-       </RadzenCard>
-
-  <input @bind ="cliente.Nombre" />
-    <RadzenButton Click=@(args => asignarCliente(cliente)) Text="Asignar cuestionario" ButtonStyle="ButtonStyle.Success" />
-      @if(clientes.Count > 0)
+              <h3 class="h5">Crear Cuestionario</h3>
+                <div class="d-flex flex-row">        
+                   <RadzenTextBox placeholder="Nombre del cuestionario"  Class="w-300" Data= "@cuestionario.Nombre"  @bind-Value=cuestionario.Nombre/>
+                   <RadzenTextBox placeholder="Desripcion"  Class="w-300" Data= "@cuestionario.Descripcion"  @bind-Value=cuestionario.Descripcion/>
+                </div>
+  </RadzenCard>
+  <RadzenCard>
+  <h3>Asignar Cliente</h3>
+    <RadzenDropDown AllowClear="true" TValue="Cliente" Class="w-100" 
+                                            Data=@(clientes)  TextProperty="Nombre"
+                                           Change=@(args =>asignarCliente(args))  />
+     @if(misClientes.Count > 0)
         {
             <span>Este cuestionario se asignara a:</span>
-            @foreach(var c in clientes)
+            @foreach(var c in misClientes)
             { 
                 <li>@c.Nombre</li>
                  <RadzenButton Click=@(args => borrarCliente(@c)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
                 
             }
         }
+  </RadzenCard>
     <ul>   
         @foreach (var p in preguntas)
         {
@@ -37,11 +42,10 @@
             <RadzenButton Click=@(args => borrarPregunta(p)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
             }
         }
-
     </ul>
 
     <RadzenCard> 
-         <span>Nueva Pregunta</span>
+         <h3>Nueva Pregunta</h3>
     <InputFile OnChange=" OnInputFileChange" multiple /> 
     <RadzenTextBox placeholder="Agregar link de video"  Class="w-300" Data= "@imageDataUrl.LinkVideo"  @bind-Value=imageDataUrl.LinkVideo/>
     <RadzenTextArea Class="w-100"  @bind-Value=imageDataUrl.descripcion placeholder="Descripcion de archivos"/>
@@ -57,25 +61,35 @@
 
     [Parameter]
     public int idEntrenador { get; set; } = 0; 
+    [Parameter]
+    public int tipo { get; set; } = 0;
 
     private Cuestionario cuestionario = new Cuestionario();
 
     private List<Pregunta> preguntas = new();
     private List<Cliente> clientes = new();
+    private List<Cliente> misClientes = new();
     private CuestionarioClientes cuestclientes = new();
     private Cliente cliente = new Cliente();
     private Pregunta pregunta = new Pregunta();
     private List<Archivo> imageDataUrls = new ();
     private Archivo imageDataUrl = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await Http.GetFromJsonAsync<List<Cliente>>("https://localhost:7184/api/Clientes");
+        clientes = clientes.ToList();
+
+
+    }
     public void asignarCliente(Object o)
     {
 
         Cliente c = (Cliente) o;
 
-        if (c != null && !clientes.Contains(c))
+        if (c != null && !misClientes.Contains(c))
         {
-            clientes.Add(c);
+            misClientes.Add(c);
         }
         cliente = new Cliente();
     }
@@ -84,7 +98,7 @@
     {
         if (id != null)
         {
-            clientes.Remove(id);
+            misClientes.Remove(id);
         }
     }
     public void borrarPregunta(Pregunta pregunta)
@@ -128,7 +142,7 @@
 
     private async void Guardar()
     {
-        if (!pregunta.Pregunta1.Equals(""))
+        if (pregunta.Pregunta1!=null)
         {
             if (imageDataUrls.Count > 0 && imageDataUrl.Image!=null)
             {
@@ -149,6 +163,14 @@
     }
     public async Task guardarCuestionario()
     {
+        if (tipo == 1)
+        {
+            cuestionario.Tipo = "Revision";
+        }
+        else
+        {
+            cuestionario.Tipo = "Bienvenida";
+        }
         cuestionario.IdEntrenador = idEntrenador;
 
         HttpResponseMessage result = null;
@@ -156,11 +178,12 @@
         cuestionario = await result.Content.ReadFromJsonAsync<Cuestionario>();
 
 
-        if(clientes.Count()>0){
-            foreach(var c in clientes) {
+        if(misClientes.Count()>0){
+            foreach(var c in misClientes) {
                 cuestclientes.IdCliente = c.IdCliente;
                 cuestclientes.IdCuestionario = cuestionario.IdCuestionario;
-                result = await Http.PostAsJsonAsync("https://localhost:7184/api/CuestionariosClientes", cuestclientes);
+                Console.Write("11111111111111111111111111111111111111111111111111111111");
+                result = await Http.PostAsJsonAsync("https://localhost:7184/api/CuestionarioClientes", cuestclientes);
             }
         }
         if (preguntas.Count() > 0)
