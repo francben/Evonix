@@ -60,8 +60,9 @@
 
     }
 
-     public async Task guardarCliente()
+    public async Task guardarCliente()
     {
+        cliente.IdEntrenador = idEntrenador;
         HttpResponseMessage result = null;
         result = await Http.PostAsJsonAsync("https://localhost:7184/api/Clientes", cliente);
         return;

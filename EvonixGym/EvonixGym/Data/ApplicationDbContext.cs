@@ -60,6 +60,11 @@ namespace EvonixGym.Data
               .WithOne(r => r.Cliente)
               .HasForeignKey(ri => ri.IdCliente)
               .IsRequired();
+                b.HasMany(ro => ro.Cuestionarios)
+              .WithOne(r => r.IdClienteNav)
+              .HasForeignKey(ri => ri.IdCliente)
+              .IsRequired();
+
 
             });
             builder.Entity<ComposicionCorporal>(b =>
@@ -87,6 +92,11 @@ namespace EvonixGym.Data
                 .WithOne(r => r.IdCuestionarioNavigation)
                 .HasForeignKey(ri => ri.IdCuestionario)
                 .IsRequired();
+                b.HasMany(ro => ro.CuestionarioClientes)
+               .WithOne(r => r.IdCuestionarioNavigation)
+               .HasForeignKey(ri => ri.IdCuestionario)
+               .IsRequired();
+
             });
 
 

@@ -28,6 +28,12 @@ namespace EvonixGym.Api.Controllers
             return await _context.CuestionarioClientes.ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<CuestionarioClientes>>> GetCuestionarioClientesP(int id)
+        {
+            return await _context.CuestionarioClientes.Where(x=>x.IdCliente==id).ToListAsync();
+        }
+
         // GET: api/CuestionarioClientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CuestionarioClientes>> GetCuestionarioClientes(int id)

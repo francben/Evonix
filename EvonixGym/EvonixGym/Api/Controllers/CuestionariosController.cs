@@ -27,16 +27,27 @@ namespace EvonixGym.Api.Controllers
         {
             return await _context.Cuestionarios.ToListAsync();
         }
+        //api/Cuestionarios/R
         [HttpGet("R")]
         public async Task<ActionResult<IEnumerable<Cuestionario>>> GetCuestionariosRevision()
         {
             return await _context.Cuestionarios.Where(x=>x.Tipo.Equals("Revision")).ToListAsync();
         }
-
+        //api/Cuestionarios/B
         [HttpGet("B")]
         public async Task<ActionResult<IEnumerable<Cuestionario>>> GetCuestionariosBienvenida()
         {
             return await _context.Cuestionarios.Where(x => x.Tipo.Equals("Bienvenida")).ToListAsync();
+        }
+
+        //api/Cuestionarios/cliente
+        [HttpGet("cliente/{id}")]
+        public async Task<ActionResult<IEnumerable<Cuestionario>>> GetCuestionariosCliente(int id)
+        {
+            return await _context.Cuestionarios.Include(n=>n.CuestionarioClientes.Where(x=>x.IdCliente == id)).ToListAsync();
+            
+
+
         }
 
         // GET: api/Cuestionarios/5

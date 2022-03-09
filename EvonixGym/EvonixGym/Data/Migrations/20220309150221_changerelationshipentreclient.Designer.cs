@@ -4,6 +4,7 @@ using EvonixGym.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvonixGym.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220309150221_changerelationshipentreclient")]
+    partial class changerelationshipentreclient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,22 +159,22 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e6771b82-48c8-4357-9945-d67407149e27",
-                            ConcurrencyStamp = "c0e5cdd6-704a-4049-b3cf-50d6497cbd2d",
+                            Id = "ee5ef447-0270-42b0-b542-59d03d4c090d",
+                            ConcurrencyStamp = "1fcefcb2-e65e-4ee7-9fe7-b45ddfc4c4b8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "33a6dfe6-8a75-470b-861f-08e83d7bd26b",
-                            ConcurrencyStamp = "0a176cf3-b05e-4d21-a849-93c53f8042cf",
+                            Id = "fe1e366a-6387-477e-9ed2-802d67c0f3e1",
+                            ConcurrencyStamp = "96bb3f06-4e66-4749-93a2-429013469dc1",
                             Name = "Entrenador",
                             NormalizedName = "ENTRENADOR"
                         },
                         new
                         {
-                            Id = "df07624e-8428-4c12-9343-59d99e1e64a3",
-                            ConcurrencyStamp = "5ef6c437-dd5b-40b1-9721-4386a896102a",
+                            Id = "062407e6-265d-4129-8323-9c1ca3a2f724",
+                            ConcurrencyStamp = "ef94ddce-1eb7-45e0-af7d-37e8383b4ab4",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         });
@@ -245,46 +247,46 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c6c1f17b-d86b-4a41-9fb5-e44663b8754d",
+                            Id = "4a22646d-258f-4020-9aad-d03f90c73c0c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d3c1be0a-000c-4a3b-a0a0-b8679531570a",
+                            ConcurrencyStamp = "069198ac-7c0e-4e21-9167-dc666a6c3ba5",
                             Email = "usuadmin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USUADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERUSUARIO",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f027c548-8cf2-4692-8e2a-c8f9ce391b3f",
+                            SecurityStamp = "5ffe6a0d-c80a-40fc-b4c8-2157f1eaceae",
                             TwoFactorEnabled = false,
                             UserName = "SuperUsuario"
                         },
                         new
                         {
-                            Id = "81495533-639e-4978-9a45-1acd201fb3b4",
+                            Id = "3c61e460-218c-43bc-b02e-253805f39bbe",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa43972a-bf09-4f99-ae0b-765e61af14be",
+                            ConcurrencyStamp = "4e8b56f1-1a77-43c0-ba97-f35f34714d30",
                             Email = "entrenador@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ENTRENADOR@GMAIL.COM",
                             NormalizedUserName = "JUAN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "428dbfb0-5834-4786-a55f-f986027526ce",
+                            SecurityStamp = "5274f24c-c3b1-4868-b541-df07415f6aff",
                             TwoFactorEnabled = false,
                             UserName = "Juan"
                         },
                         new
                         {
-                            Id = "a85dbaaa-d01e-42cf-9c51-6af3e1e80cbc",
+                            Id = "2a96142e-1d52-4fb6-a9ce-0d165cac45af",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b156697c-2cbd-4351-b7d6-a690be7b5429",
+                            ConcurrencyStamp = "d0428ca0-9aa8-4c69-9d03-2890c41b9c84",
                             Email = "cliente@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTE@GMAIL.COM",
                             NormalizedUserName = "FRAN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae25305e-e4b0-459c-b37d-61328a664361",
+                            SecurityStamp = "d69c7dcf-40aa-4add-a1d2-f7b6b4e82d2f",
                             TwoFactorEnabled = false,
                             UserName = "fran"
                         });
@@ -355,18 +357,18 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "c6c1f17b-d86b-4a41-9fb5-e44663b8754d",
-                            RoleId = "e6771b82-48c8-4357-9945-d67407149e27"
+                            UserId = "4a22646d-258f-4020-9aad-d03f90c73c0c",
+                            RoleId = "ee5ef447-0270-42b0-b542-59d03d4c090d"
                         },
                         new
                         {
-                            UserId = "81495533-639e-4978-9a45-1acd201fb3b4",
-                            RoleId = "33a6dfe6-8a75-470b-861f-08e83d7bd26b"
+                            UserId = "3c61e460-218c-43bc-b02e-253805f39bbe",
+                            RoleId = "fe1e366a-6387-477e-9ed2-802d67c0f3e1"
                         },
                         new
                         {
-                            UserId = "a85dbaaa-d01e-42cf-9c51-6af3e1e80cbc",
-                            RoleId = "df07624e-8428-4c12-9343-59d99e1e64a3"
+                            UserId = "2a96142e-1d52-4fb6-a9ce-0d165cac45af",
+                            RoleId = "062407e6-265d-4129-8323-9c1ca3a2f724"
                         });
                 });
 
@@ -522,19 +524,18 @@ namespace EvonixGym.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuestionarioClientes"), 1L, 1);
 
+                    b.Property<int?>("CuestionarioIdCuestionario")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdCliente")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("IdCuestionario")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("IdCuestionarioClientes");
 
-                    b.HasIndex("IdCliente");
-
-                    b.HasIndex("IdCuestionario");
+                    b.HasIndex("CuestionarioIdCuestionario");
 
                     b.ToTable("CuestionarioClientes");
                 });
@@ -888,21 +889,9 @@ namespace EvonixGym.Data.Migrations
 
             modelBuilder.Entity("EvonixGym.Modelos.CuestionarioClientes", b =>
                 {
-                    b.HasOne("EvonixGym.Data.Modelos.Cliente", "IdClienteNav")
-                        .WithMany("Cuestionarios")
-                        .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EvonixGym.Modelos.Cuestionario", "IdCuestionarioNavigation")
+                    b.HasOne("EvonixGym.Modelos.Cuestionario", null)
                         .WithMany("CuestionarioClientes")
-                        .HasForeignKey("IdCuestionario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdClienteNav");
-
-                    b.Navigation("IdCuestionarioNavigation");
+                        .HasForeignKey("CuestionarioIdCuestionario");
                 });
 
             modelBuilder.Entity("EvonixGym.Modelos.PerimetroDelCliente", b =>
@@ -1000,8 +989,6 @@ namespace EvonixGym.Data.Migrations
             modelBuilder.Entity("EvonixGym.Data.Modelos.Cliente", b =>
                 {
                     b.Navigation("ComposicionCorporalClient");
-
-                    b.Navigation("Cuestionarios");
 
                     b.Navigation("PerimetroDelClientes");
 

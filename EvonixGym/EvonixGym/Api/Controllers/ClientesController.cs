@@ -29,6 +29,14 @@ namespace EvonixGym.Api.Controllers
             return await _context.Clientes.Include(n => n.UsuarioClientes).ThenInclude(c => c.Usuario).ToListAsync();
         }
 
+        // GET: api/Clientes
+        [HttpGet("entrenador/{id}")]
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientesEntrenador(int id)
+        {
+            //return await _context.Clientes.ToListAsync();
+            return await _context.Clientes.Include(n => n.UsuarioClientes).ThenInclude(c => c.Usuario).Where(x=>x.IdEntrenador==id).ToListAsync();
+        }
+
         // GET: api/Clientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
@@ -42,6 +50,7 @@ namespace EvonixGym.Api.Controllers
 
             return cliente;
         }
+
 
         // PUT: api/Clientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

@@ -23,6 +23,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVxDcmVhckNsaWVudGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cliente/DetallesCliente.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVxEZXRhbGxlc0NsaWVudGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cliente/MisClientes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVxNaXNDbGllbnRlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cliente/RutinaA.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVxSdXRpbmFBLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -37,6 +49,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cuestioarios/ECuestionarios.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3Vlc3Rpb2FyaW9zXEVDdWVzdGlvbmFyaW9zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cuestioarios/MiCuestionario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3Vlc3Rpb2FyaW9zXE1pQ3Vlc3Rpb25hcmlvLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Usuario/Desktop/Escritorio Dali/gymtem/gum/EvonixGym/EvonixGym/Pages/Cuestioarios/VerCuestionario.razor]

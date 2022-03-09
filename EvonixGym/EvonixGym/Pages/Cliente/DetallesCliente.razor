@@ -1,0 +1,64 @@
+﻿@page "/cliente/{idCliente:int}"
+@inject HttpClient Http;
+@inject NavigationManager NavigationManager
+
+<div>
+    <RadzenButton Click=@rutinas      Text="Rutina Actual" ButtonStyle="ButtonStyle.Secondary" />
+    <RadzenButton Click=@Cuestionario Text="Anotaciones"   ButtonStyle="ButtonStyle.Secondary" />
+    <RadzenButton Click=@rutinas      Text="Cuestionario"  ButtonStyle="ButtonStyle.Secondary" />
+    <RadzenButton Click=@rutinas      Text="Evolucion"     ButtonStyle="ButtonStyle.Secondary" />
+    <RadzenButton Click=@rutinas      Text="Historico"     ButtonStyle="ButtonStyle.Secondary" />
+</div>
+
+
+
+
+<div class="row px-3" style="min-height: 200px;">
+   
+<RadzenCard >
+    <div class="col-xl-6 p-3">
+    <RadzenCard Style="width:300px;">
+     <h2>Datos Personales</h2>
+    <h3>@cliente.Nombre @cliente.Apellido</h3>
+      <span>@cliente.Dni</span>
+      <span>@cliente.Fechanacimiento</span>
+      <span>@cliente.Sexo</span>
+      <span>@cliente.Provincia</span>
+      <span>@cliente.Municipio</span>
+      <span>@cliente.Telefono</span>
+    </RadzenCard>
+    </div>
+    <RadzenCard Style="width:300px;">
+         <h2>Estadisticas</h2>
+    </RadzenCard>
+     <RadzenCard Style="width:300px;">
+         <h2>Facturacion</h2>
+    </RadzenCard>
+</RadzenCard>
+</div>
+
+
+
+
+
+@code{
+    [Parameter]
+    public int idCliente { get; set; }
+    public Cliente cliente = new Cliente();
+
+
+     protected override async Task OnInitializedAsync()
+    {
+        cliente = await Http.GetFromJsonAsync<Cliente>("https://localhost:7184/api/Clientes/"+idCliente);
+    }
+
+    void rutinas()
+    {
+        NavigationManager.NavigateTo("https://localhost:7184/rutinas/"+idCliente);
+    }
+    void Cuestionario()
+    {
+        NavigationManager.NavigateTo("https://localhost:7184/cuestionarioCliente/"+idCliente);
+    }
+
+}

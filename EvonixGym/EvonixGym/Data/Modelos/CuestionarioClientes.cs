@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EvonixGym.Data.Modelos;
+using System.ComponentModel.DataAnnotations;
 
 namespace EvonixGym.Modelos
 {
@@ -9,8 +10,9 @@ namespace EvonixGym.Modelos
         public int? IdCuestionario { get; set; }
         public int? IdCliente { get; set; }
 
-      //  public virtual Ejercicio IdCuestionarioNavigation { get; set; }
-     //  public virtual Equipamiento IdClienteNavigation { get; set; }
+        public virtual Cuestionario IdCuestionarioNavigation { get; set; }
+        public virtual Cliente IdClienteNav { get; set; }
+        //  public virtual Equipamiento IdClienteNavigation { get; set; }
 
 
 
