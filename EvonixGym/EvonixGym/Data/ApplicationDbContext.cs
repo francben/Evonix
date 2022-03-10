@@ -51,6 +51,31 @@ namespace EvonixGym.Data
                 .WithOne(r => r.Cliente)
                 .HasForeignKey(ri => ri.IdCliente)
                 .IsRequired();
+            }); 
+            builder.Entity<Ejercicio>(b =>
+            {
+                b.HasMany(ro => ro.MusculoEjercicios)
+                .WithOne(r => r.IdEjercicioNavigation)
+                .HasForeignKey(ri => ri.IdEjercicio)
+                .IsRequired();
+                b.HasMany(ro => ro.EquipamientoEjercicios)
+                .WithOne(r => r.IdEjercicioNavigation)
+                .HasForeignKey(ri => ri.IdEjercicio)
+                .IsRequired();
+            }); 
+            builder.Entity<Musculo>(b =>
+            {
+                b.HasMany(ro => ro.MusculoEjercicios)
+                .WithOne(r => r.IdMusculoNavigation)
+                .HasForeignKey(ri => ri.IdMusculo)
+                .IsRequired();
+            }); 
+            builder.Entity<Equipamiento>(b =>
+            {
+                b.HasMany(ro => ro.EquipamientoEjercicios)
+                .WithOne(r => r.IdEquipamientoNavigation)
+                .HasForeignKey(ri => ri.IdEquipamiento)
+                .IsRequired();
             });
             
             Seed(builder);
@@ -117,5 +142,13 @@ namespace EvonixGym.Data
         public DbSet<UsuarioClientes> UsuarioClientes { get; set; }
         public DbSet<Entrenador> Entrenadores { get; set; }
         public DbSet<UsuarioEntrenadores> UsuarioEntrenadores { get; set; }
+        public DbSet<Musculo> Musculos { get; set; }
+        public DbSet<MusculoEjercicio> MusculoEjercicios { get; set; }
+        public DbSet<Ejercicio> Ejercicios { get; set; }
+        public DbSet<Nivel> Niveles { get; set; }
+        public DbSet<PasosEjercicio> PasosEjercicios { get; set; }
+        public DbSet<Equipamiento> Equipamientos { get; set; }
+        public DbSet<EquipamientoEjercicio> EquipamientoEjercicios { get; set; }
+
     }
 }

@@ -1,0 +1,112 @@
+﻿@page "/nivelejer"
+@inject HttpClient Http;
+@inject NavigationManager NavigationManager;
+
+<h3>Niveles</h3>
+<RadzenTemplateForm Data="@nivel">
+    <div class="row">
+        <div class="col-md-12">
+            <RadzenFieldset Text="Agregar / Editar">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Nombre" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@nivel.Nombre Placeholder="Nombre" style="width: 100%;" Name="CardNr" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Descripción" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@nivel.Descripcion Placeholder="Descripción" style="width: 100%;" Name="CardNr" />
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>
+<div class="row justify-content-center">
+    <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Guardar" Click=@(args => Guardar()) />
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="cancel" style="display: inline-block; margin-left: 10px;" Text="Cancelar" Click=@(args => Cancelar()) />
+    </div>
+</div>
+
+<h3>Lista de Nivel</h3>
+<RadzenFieldset Text=""> 
+    <RadzenDataGrid @ref="ordersGrid" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" 
+            Data="@nivellist" TItem="Nivel">
+            <Columns>
+                <RadzenDataGridColumn Width="40px" TItem="Nivel" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+                     <Template Context="data">
+                        @(nivellist.IndexOf(data) + 1)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Nivel" Property="Nombre" Title="Nombre" Filterable="false">
+                    <Template Context="nivel">
+                        <p>@nivel.Nombre</p>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Nivel" Property="Descripcion" Title="Descripción" Filterable="false">
+                   <Template Context="nivel">
+                        <p>@nivel.Descripcion</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Width="150px" TItem="Nivel" Property="NivelId" Title="Opciones" Filterable="false" Sortable="false">
+                    <Template Context="nivel">
+                        <RadzenButton Click=@(args => Editar(nivel)) Text="" Icon="edit" ButtonStyle="ButtonStyle.Warning" />
+                        <RadzenButton Click=@(args => Borrar(nivel.NivelId)) Text="" Icon="delete" ButtonStyle="ButtonStyle.Danger"  />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+    </RadzenDataGrid>
+</RadzenFieldset>
+  
+
+@code {
+    RadzenDataGrid<Nivel> ordersGrid;
+    public IList<Nivel> nivellist { get; set; }
+    private Nivel nivel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        nivel = new Nivel();
+        nivellist = new List<Nivel>();
+        nivellist = await Http.GetFromJsonAsync<List<Nivel>>("https://localhost:7184/api/Niveles");
+        nivellist = nivellist.ToList();
+    }
+    private void Editar(Nivel argEquip)
+    {
+        nivel = argEquip;
+    }
+    private async Task Borrar(int nivelid)
+    {
+        await Http.DeleteAsync("https://localhost:7184/api/Niveles/" + nivelid);
+        await Recargar();
+    }
+    protected async Task Cancelar()
+    {
+        await Recargar();
+    }
+    private async Task Recargar()
+    {
+        nivellist = await Http.GetFromJsonAsync<List<Nivel>>("https://localhost:7184/api/Niveles");
+        nivellist = nivellist.ToList();
+        nivel = new Nivel();
+        StateHasChanged();
+    }
+    private async Task Guardar()
+    {
+        if (nivel.NivelId == 0)
+        {
+            await Http.PostAsJsonAsync("https://localhost:7184/api/Niveles", nivel);
+        }
+        else 
+        {
+            await Http.PutAsJsonAsync("https://localhost:7184/api/Niveles/" + nivel.NivelId, nivel);
+        }
+        await Recargar();
+    }
+}

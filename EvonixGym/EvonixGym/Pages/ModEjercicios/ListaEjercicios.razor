@@ -1,0 +1,261 @@
+﻿@page "/ejercicio"
+@using System.Collections
+@inject HttpClient Http;
+@inject NavigationManager NavigationManager;
+
+<h3>Ejercicios</h3>
+
+<RadzenTemplateForm Data="@ejercicio">
+    <div class="row">
+        <div class="col-md-6">
+            <RadzenFieldset Text="Agregar / Editar">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Titulo" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@ejercicio.Titulo Placeholder="Titulo" style="width: 100%;" Name="Titulo" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Ejecución" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=ejercicio.TipoEjecucion Placeholder="Agarre, Cerrado" style="width: 100%;" Name="TipoEjecucion" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Aparato" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=ejercicio.Aparato Placeholder="Con barra" style="width: 100%;" Name="Aparato" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Nivel" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenDropDown @bind-Value="ejercicio.NivelId" AllowClear="true" Placeholder="Seleccionar" Data="@niveles" style="width: 100%;" TextProperty="Nombre" ValueProperty="NivelId" Name="NivelId">
+                        </RadzenDropDown>
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+        <div class="col-md-6">
+            <RadzenFieldset Text="Configurar">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Musculo" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenDropDown @bind-Value=@musculoIds AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"  Multiple="true" Placeholder="Seleccionar" Data=@musculos TextProperty="Nombre" ValueProperty="IdMusculo" Name="IdMusculo" Style="width:100%; display: block;" class="w-100"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Equipamiento" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenDropDown @bind-Value=@equipoIds AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Multiple="true" Placeholder="Seleccionar" Data=@equipos TextProperty="Nombre" ValueProperty="IdEquipamiento" Name=IdEquipamiento Style="width:100%; display: block;" class="w-100"/>
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+        <div class="col-md-6">
+            <RadzenFieldset Text="Explicación">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Explicación" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@ejercicio.Descripcion Placeholder="Explicación" style="width: 100%;" Name="Descripcion" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Link del video" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@ejercicio.LinkVideo Placeholder="video de Youtube" style="width: 100%;" Name="LinkVideo" />
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>
+<div class="row justify-content-center">
+    <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Guardar" Click=@(args => Guardar()) />
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="cancel" style="display: inline-block; margin-left: 10px;" Text="Cancelar" Click=@(args => Cancelar()) />
+    </div>
+</div>
+<h3>Lista de Ejercicios</h3>
+<RadzenFieldset Text=""> 
+    <RadzenDataGrid @ref="ordersGrid" AllowFiltering="true" AllowPaging="true" PageSize="3" AllowSorting="true" 
+            Data="@ejerciciolist" TItem="Ejercicio">
+            <Columns>
+                <RadzenDataGridColumn Width="40px" TItem="Ejercicio" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+                     <Template Context="data">
+                        @(ejerciciolist.IndexOf(data) + 1)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Ejercicio" Property="Titulo" Title="Titulo" Filterable="false">
+                    <Template Context="ejercicio">
+                        <p>@ejercicio.Titulo</p>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Ejercicio" Property="Aparato" Title="Aparato" Filterable="false">
+                   <Template Context="ejercicio">
+                        <p>@ejercicio.Aparato</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Ejercicio" Property="TipoEjecucion" Title="Tipo Ejecución" Filterable="false">
+                   <Template Context="ejercicio">
+                        <p>@ejercicio.TipoEjecucion</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Ejercicio" Property="Nombre" Title="Nivel" Filterable="false">
+                   <Template Context="ejercicio">
+                        <p>@ejercicio.NivelId</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="Ejercicio" Property="Nombre" Title="Musculos" Filterable="false">
+                   <Template Context="ejercicio">
+                        <p>@ejercicio.MusculoEjercicios</p>
+                   </Template>
+                </RadzenDataGridColumn> 
+                <RadzenDataGridColumn TItem="Ejercicio" Property="LinkVideo" Title="Link a Youtube" Filterable="false">
+                   <Template Context="ejercicio">
+                        <p>@ejercicio.LinkVideo</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="MusculoEjercicio" Property="MusculoNombre" Title="Musculos" Filterable="false">
+                   <Template Context="musculo">
+                        <p>@musculo.IdMusculo</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Width="150px" TItem="Ejercicio" Property="IdEjercicio" Title="Opciones" Filterable="false" Sortable="false">
+                    <Template Context="ejercicio">
+                        <RadzenButton Click=@(args => Editar(ejercicio)) Text="" Icon="edit" ButtonStyle="ButtonStyle.Warning" />
+                        <RadzenButton Click=@(args => Borrar(ejercicio.IdEjercicio)) Text="" Icon="delete" ButtonStyle="ButtonStyle.Danger"  />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+    </RadzenDataGrid>
+</RadzenFieldset>
+  
+
+@code {
+    RadzenDataGrid<Ejercicio> ordersGrid;
+    public IList<Ejercicio> ejerciciolist { get; set; }
+    private Ejercicio ejercicio { get; set; }
+    private IEnumerable<Musculo> musculos { get; set; }
+    private IEnumerable<Equipamiento> equipos { get; set; }
+    private IEnumerable<int> musculoIds { get; set; }
+    private IEnumerable<int> equipoIds { get; set; }
+    private IList<Nivel> niveles { get; set; }
+    public int mm { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ejercicio = new Ejercicio();
+        ejerciciolist = new List<Ejercicio>();
+        ejerciciolist = await Http.GetFromJsonAsync<List<Ejercicio>>("https://localhost:7184/api/Ejercicios");
+        ejerciciolist = ejerciciolist.ToList();
+
+        ejercicio.MusculoEjercicios = new List<MusculoEjercicio>();
+        musculos = await Http.GetFromJsonAsync<List<Musculo>>("https://localhost:7184/api/Musculos");
+        musculos = musculos.ToList();
+
+        ejercicio.EquipamientoEjercicios = new List<EquipamientoEjercicio>();
+        equipos = await Http.GetFromJsonAsync<List<Equipamiento>>("https://localhost:7184/api/Equipamientos");
+        equipos = equipos.ToList();
+
+        niveles = await Http.GetFromJsonAsync<List<Nivel>>("https://localhost:7184/api/Niveles");
+        niveles = niveles.ToList();
+    }
+    private void Editar(Ejercicio ejerarg)
+    {
+        //HttpResponseMessage result = await Http.GetAsync("https://localhost:7195/api/Ejercicios/" + ejercicioId);
+        //if (result.IsSuccessStatusCode)
+        //{
+        //    ejercicio = await result.Content.ReadFromJsonAsync<Ejercicio>();
+        //}
+        ejercicio = ejerarg;
+    }
+    private async Task Borrar(int ejercicioId)
+    {
+        await Http.DeleteAsync("https://localhost:7184/api/Ejercicios/" + ejercicioId);
+        await Recargar();
+    }
+    protected async Task Cancelar()
+    {
+        await Recargar();
+    }
+    private async Task Recargar()
+    {
+        ejerciciolist = await Http.GetFromJsonAsync<List<Ejercicio>>("https://localhost:7184/api/Ejercicios");
+        ejerciciolist = ejerciciolist.ToList();
+        ejercicio = new Ejercicio();
+        ejercicio.MusculoEjercicios = new List<MusculoEjercicio>();
+        ejercicio.EquipamientoEjercicios = new List<EquipamientoEjercicio>();
+        musculoIds = null;
+        equipoIds = null;
+        StateHasChanged();
+    }
+    private async Task Guardar()
+    {
+        HttpResponseMessage result = null;
+        musculoIds = musculoIds.ToList();
+        equipoIds = equipoIds.ToList();
+        if(musculoIds != null)
+        {
+            foreach (var musculoid in musculoIds)
+            {
+                HttpResponseMessage _result = await Http.GetAsync("https://localhost:7184/api/Musculos/" + musculoid);
+                MusculoEjercicio musculoEjercicios = new MusculoEjercicio();
+                musculoEjercicios.IdEjercicio = ejercicio.IdEjercicio;
+                musculoEjercicios.IdMusculo = musculoid;
+                if (ejercicio.MusculoEjercicios == null)
+                {
+                    ejercicio.MusculoEjercicios = new List<MusculoEjercicio>();
+                }
+                ejercicio.MusculoEjercicios.Add(musculoEjercicios);
+
+            }
+        }
+        if(equipoIds != null)
+        {
+            foreach (var equipId in equipoIds)
+            {
+                HttpResponseMessage _result = await Http.GetAsync("https://localhost:7184/api/Equipamientos/" + equipId);
+                EquipamientoEjercicio equipamientoEjercicios = new EquipamientoEjercicio();
+                equipamientoEjercicios.IdEjercicio = ejercicio.IdEjercicio;
+                equipamientoEjercicios.IdEquipamiento = equipId;
+                if (ejercicio.EquipamientoEjercicios == null)
+                {
+                    ejercicio.EquipamientoEjercicios = new List<EquipamientoEjercicio>();
+                }
+                ejercicio.EquipamientoEjercicios.Add(equipamientoEjercicios);
+            }
+        }
+        if (ejercicio.IdEjercicio == 0)
+        {
+            result = await Http.PostAsJsonAsync("https://localhost:7184/api/Ejercicios", ejercicio);
+            if (result.IsSuccessStatusCode)
+            {
+                ejercicio = await result.Content.ReadFromJsonAsync<Ejercicio>();
+                await Http.PutAsJsonAsync("https://localhost:7184/api/Ejercicios/" + ejercicio.IdEjercicio, ejercicio);
+            }
+        }
+        else 
+        {
+            await Http.PutAsJsonAsync("https://localhost:7184/api/Ejercicios/" + ejercicio.IdEjercicio, ejercicio);
+        }
+        await Recargar();
+    }
+}

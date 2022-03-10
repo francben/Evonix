@@ -4,6 +4,7 @@ using EvonixGym.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvonixGym.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220309131426_correccionEjercicio")]
+    partial class correccionEjercicio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("IdCliente");
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Ejercicio", b =>
@@ -107,7 +109,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("NivelId");
 
-                    b.ToTable("Ejercicios", (string)null);
+                    b.ToTable("Ejercicios");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Entrenador", b =>
@@ -153,7 +155,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("IdEntrenador");
 
-                    b.ToTable("Entrenadores", (string)null);
+                    b.ToTable("Entrenadores");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Equipamiento", b =>
@@ -172,7 +174,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("IdEquipamiento");
 
-                    b.ToTable("Equipamientos", (string)null);
+                    b.ToTable("Equipamientos");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.EquipamientoEjercicio", b =>
@@ -195,7 +197,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("IdEquipamiento");
 
-                    b.ToTable("EquipamientoEjercicios", (string)null);
+                    b.ToTable("EquipamientoEjercicios");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Musculo", b =>
@@ -214,7 +216,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("IdMusculo");
 
-                    b.ToTable("Musculos", (string)null);
+                    b.ToTable("Musculos");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.MusculoEjercicio", b =>
@@ -237,7 +239,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("IdMusculo");
 
-                    b.ToTable("MusculoEjercicios", (string)null);
+                    b.ToTable("MusculoEjercicios");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Nivel", b =>
@@ -256,7 +258,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("NivelId");
 
-                    b.ToTable("Niveles", (string)null);
+                    b.ToTable("Niveles");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.PasosEjercicio", b =>
@@ -283,7 +285,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("IdEjercicioNavigationIdEjercicio");
 
-                    b.ToTable("PasosEjercicios", (string)null);
+                    b.ToTable("PasosEjercicios");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Rol", b =>
@@ -469,7 +471,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsuarioClientes", (string)null);
+                    b.ToTable("UsuarioClientes");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.UsuarioEntrenadores", b =>
@@ -493,7 +495,7 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsuarioEntrenadores", (string)null);
+                    b.ToTable("UsuarioEntrenadores");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.UsuarioRol", b =>

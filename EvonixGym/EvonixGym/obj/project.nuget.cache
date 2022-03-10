@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Zqt6L5f+3BmPZ+H/6Zvn5No6Iop0rUHLWqSRBfgllZKb4Q90smAs0faMWxOHGd8Ee+li+DPbVCYBkqYgwN/8qw==",
+  "dgSpecHash": "u9Z1fLJNAfd9BBQS5M7SCQTI0NkvOXo8ET8bGuUAEX0bX6FR/D0wurblHoEnYMfCM2G+xkwb5irEOJH3lVQl7g==",
   "success": true,
   "projectFilePath": "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\EvonixGym.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Franc\\.nuget\\packages\\blazored.modal\\6.0.1\\blazored.modal.6.0.1.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\libsassbuilder\\2.0.1\\libsassbuilder.2.0.1.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
@@ -74,6 +75,7 @@
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.8.0\\microsoft.identitymodel.protocols.openidconnect.6.8.0.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.jsinterop\\5.0.0\\microsoft.jsinterop.5.0.0.nupkg.sha512",
+    "C:\\Users\\Franc\\.nuget\\packages\\microsoft.jsinterop.webassembly\\3.2.1\\microsoft.jsinterop.webassembly.3.2.1.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.net.stringtools\\1.0.0\\microsoft.net.stringtools.1.0.0.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Franc\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",

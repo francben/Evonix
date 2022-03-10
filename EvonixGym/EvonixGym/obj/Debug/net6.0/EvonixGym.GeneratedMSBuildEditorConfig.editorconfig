@@ -31,6 +31,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/ModEjercicios/ListadePasos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kRWplcmNpY2lvc1xMaXN0YWRlUGFzb3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/ModEjercicios/ListaEjercicios.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kRWplcmNpY2lvc1xMaXN0YUVqZXJjaWNpb3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/ModEjercicios/ListaEquipamientos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kRWplcmNpY2lvc1xMaXN0YUVxdWlwYW1pZW50b3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/ModEjercicios/ListaMusculos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kRWplcmNpY2lvc1xMaXN0YU11c2N1bG9zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/ModEjercicios/ListaNiveles.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kRWplcmNpY2lvc1xMaXN0YU5pdmVsZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Apps/meta/rep/EvonixGym/EvonixGym/Pages/User/Usuarios.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxVc3Vhcmlvcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

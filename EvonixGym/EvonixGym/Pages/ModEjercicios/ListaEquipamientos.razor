@@ -1,0 +1,112 @@
+﻿@page "/equipment"
+@inject HttpClient Http;
+@inject NavigationManager NavigationManager;
+
+<h3>Equipamiento</h3>
+<RadzenTemplateForm Data="@equipo">
+    <div class="row">
+        <div class="col-md-12">
+            <RadzenFieldset Text="Agregar / Editar">
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Nombre" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@equipo.Nombre Placeholder="Nombre" style="width: 100%;" Name="CardNr" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex">
+                        <RadzenLabel Text="Descripción" />
+                    </div>
+                    <div class="col-md-8">
+                        <RadzenTextBox @bind-Value=@equipo.Decripcion Placeholder="Descripción" style="width: 100%;" Name="CardNr" />
+                    </div>
+                </div>
+            </RadzenFieldset>
+        </div>
+    </div>
+</RadzenTemplateForm>
+<div class="row justify-content-center">
+    <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Guardar" Click=@(args => Guardar()) />
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="cancel" style="display: inline-block; margin-left: 10px;" Text="Cancelar" Click=@(args => Cancelar()) />
+    </div>
+</div>
+
+<h3>Lista de Equipamiento</h3>
+<RadzenFieldset Text=""> 
+    <RadzenDataGrid @ref="ordersGrid" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" 
+            Data="@equipolist" TItem="Equipamiento">
+            <Columns>
+                <RadzenDataGridColumn Width="40px" TItem="Equipamiento" Title="#" Filterable="false" Sortable="false" TextAlign="TextAlign.Center">
+                     <Template Context="data">
+                        @(equipolist.IndexOf(data) + 1)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Equipamiento" Property="Nombre" Title="Nombre" Filterable="false">
+                    <Template Context="equipo">
+                        <p>@equipo.Nombre</p>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Equipamiento" Property="Decripcion" Title="Descripción" Filterable="false">
+                   <Template Context="equipo">
+                        <p>@equipo.Decripcion</p>
+                   </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Width="150px" TItem="Equipamiento" Property="IdEquipamiento" Title="Opciones" Filterable="false" Sortable="false">
+                    <Template Context="equipo">
+                        <RadzenButton Click=@(args => Editar(equipo)) Text="" Icon="edit" ButtonStyle="ButtonStyle.Warning" />
+                        <RadzenButton Click=@(args => Borrar(equipo.IdEquipamiento)) Text="" Icon="delete" ButtonStyle="ButtonStyle.Danger"  />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+    </RadzenDataGrid>
+</RadzenFieldset>
+  
+
+@code {
+    RadzenDataGrid<Equipamiento> ordersGrid;
+    public IList<Equipamiento> equipolist { get; set; }
+    private Equipamiento equipo { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        equipo = new Equipamiento();
+        equipolist = new List<Equipamiento>();
+        equipolist = await Http.GetFromJsonAsync<List<Equipamiento>>("https://localhost:7184/api/Equipamientos");
+        equipolist = equipolist.ToList();
+    }
+    private void Editar(Equipamiento argEquip)
+    {
+        equipo = argEquip;
+    }
+    private async Task Borrar(int equipoid)
+    {
+        await Http.DeleteAsync("https://localhost:7184/api/Equipamientos/" + equipoid);
+        await Recargar();
+    }
+    protected async Task Cancelar()
+    {
+        await Recargar();
+    }
+    private async Task Recargar()
+    {
+        equipolist = await Http.GetFromJsonAsync<List<Equipamiento>>("https://localhost:7184/api/Equipamientos");
+        equipolist = equipolist.ToList();
+        equipo = new Equipamiento();
+        StateHasChanged();
+    }
+    private async Task Guardar()
+    {
+        if (equipo.IdEquipamiento == 0)
+        {
+            await Http.PostAsJsonAsync("https://localhost:7184/api/Equipamientos", equipo);
+        }
+        else 
+        {
+            await Http.PutAsJsonAsync("https://localhost:7184/api/Equipamientos/" + equipo.IdEquipamiento, equipo);
+        }
+        await Recargar();
+    }
+}

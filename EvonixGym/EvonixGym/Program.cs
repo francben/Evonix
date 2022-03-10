@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using EvonixGym.Areas.Identity;
 using EvonixGym.Data;
 using Microsoft.AspNetCore.Components;
@@ -29,6 +30,7 @@ builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
 // Add services to the container.
 builder.Services.AddHttpClient();

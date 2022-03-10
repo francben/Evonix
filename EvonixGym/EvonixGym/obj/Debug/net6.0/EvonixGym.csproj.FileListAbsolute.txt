@@ -283,6 +283,7 @@ C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\EvonixGym.deps.json
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\EvonixGym.runtimeconfig.json
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\EvonixGym.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\EvonixGym.pdb
+C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Blazored.Modal.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Humanizer.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\MessagePack.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\MessagePack.Annotations.dll
@@ -328,6 +329,7 @@ C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.IdentityModel.Lo
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.JSInterop.WebAssembly.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
 C:\Apps\meta\rep\EvonixGym\EvonixGym\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
