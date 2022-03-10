@@ -39,11 +39,17 @@ namespace EvonixGym.Data.Migrations
                     b.Property<string>("Dni")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("EntrenadorIdEntrenador")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("FechaAlta")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("Fechanacimiento")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdEntrenador")
+                        .HasColumnType("int");
 
                     b.Property<int?>("IdEntrenamiento")
                         .HasColumnType("int");
@@ -57,8 +63,8 @@ namespace EvonixGym.Data.Migrations
                     b.Property<string>("Municipio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Nombre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Provincia")
                         .HasColumnType("nvarchar(max)");
@@ -71,7 +77,10 @@ namespace EvonixGym.Data.Migrations
 
                     b.HasKey("IdCliente");
 
-                    b.ToTable("Clientes", (string)null);
+                   
+                    
+                    b.HasIndex("EntrenadorIdEntrenador");
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Ejercicio", b =>
@@ -315,22 +324,25 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "95cfd66b-e737-4c9b-bf6e-bb0beea88d8f",
-                            ConcurrencyStamp = "5078c260-be32-4f44-8bde-bd8ef064eae7",
+                            
+                            Id = "bf772206-30ec-4f46-97b8-4c560fbb1031",
+                            ConcurrencyStamp = "5ce3e220-2431-44de-b7ef-139324052b95",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "6fbde398-8b73-40c0-b770-e50c76695d70",
-                            ConcurrencyStamp = "cec8438f-6d2e-4602-9b9d-8615a7ae5f39",
+                            
+                            Id = "a537b7d8-00a9-4354-a681-e395c563388e",
+                            ConcurrencyStamp = "5769e7b2-b57f-4358-bb60-54ae1d9ca372",
                             Name = "Entrenador",
                             NormalizedName = "ENTRENADOR"
                         },
                         new
                         {
-                            Id = "abe19e28-1505-40bd-8feb-7dffbad1d4b1",
-                            ConcurrencyStamp = "dcd73dd4-7999-471b-a30c-1ff2b8aa7166",
+                            
+                            Id = "c8731d41-4b48-4440-bdf6-8f203b2915bd",
+                            ConcurrencyStamp = "27497c29-a252-4555-bdd5-020e0b54c53f",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         });
@@ -403,46 +415,56 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "16099f06-e9e3-40fb-a85d-08badb58f1fe",
+
+                           
+                            Id = "2a3a3bcf-4d86-4cd7-9f23-112a12f23702",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c3759f92-7a99-4944-8a9e-a4f7debc6d7e",
+                            
+                            ConcurrencyStamp = "eee4fbff-e53a-408f-a7a7-b130dc84fa35",
                             Email = "usuadmin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USUADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERUSUARIO",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "af8d3b06-91b9-4404-be20-7f34d9d4a915",
+                            
+                            SecurityStamp = "4fef69f3-43fd-419b-9c53-2eaa8645e31b",
                             TwoFactorEnabled = false,
                             UserName = "SuperUsuario"
                         },
                         new
                         {
-                            Id = "9fb642bb-4db3-4e2b-8955-6f3251a1f77e",
+                            
+                            Id = "d29e06b9-156a-4c02-b680-4a07cd6019a2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3584a8e4-9063-4d92-83a3-92bc5fbd7fa3",
+                            
+                            ConcurrencyStamp = "6dada721-d1d0-4bf4-9869-36b20466e8eb",
                             Email = "entrenador@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ENTRENADOR@GMAIL.COM",
                             NormalizedUserName = "JUAN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "26c156f3-901d-4450-baa5-0b98d4fef5e8",
+                            
+                            SecurityStamp = "6949ff67-8b73-4e01-af02-2e0b17f8e9c1",
                             TwoFactorEnabled = false,
                             UserName = "Juan"
                         },
                         new
                         {
-                            Id = "570e59e3-42df-4851-a6c2-3ec4c26a9613",
+                            
+                            Id = "94ceae79-735f-4535-bd66-6aa7e3cedfa0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e6713e46-df58-44e2-a625-f3d9ec3bfd47",
+                            
+                            ConcurrencyStamp = "c93abdbc-4a1f-4248-8c08-a0f9f9324f8b",
                             Email = "cliente@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTE@GMAIL.COM",
                             NormalizedUserName = "FRAN",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "772c66af-38b8-4a0b-8579-07f32ea4336a",
+                            
+                            SecurityStamp = "4c0d6b3f-8738-4ec1-afa2-79f52a303a29",
                             TwoFactorEnabled = false,
                             UserName = "fran"
                         });
@@ -513,19 +535,318 @@ namespace EvonixGym.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "16099f06-e9e3-40fb-a85d-08badb58f1fe",
-                            RoleId = "95cfd66b-e737-4c9b-bf6e-bb0beea88d8f"
+                            
+                            UserId = "2a3a3bcf-4d86-4cd7-9f23-112a12f23702",
+                            RoleId = "bf772206-30ec-4f46-97b8-4c560fbb1031"
                         },
                         new
                         {
-                            UserId = "9fb642bb-4db3-4e2b-8955-6f3251a1f77e",
-                            RoleId = "6fbde398-8b73-40c0-b770-e50c76695d70"
+                            
+                            UserId = "d29e06b9-156a-4c02-b680-4a07cd6019a2",
+                            RoleId = "a537b7d8-00a9-4354-a681-e395c563388e"
                         },
                         new
                         {
-                            UserId = "570e59e3-42df-4851-a6c2-3ec4c26a9613",
-                            RoleId = "abe19e28-1505-40bd-8feb-7dffbad1d4b1"
+                            
+                            UserId = "94ceae79-735f-4535-bd66-6aa7e3cedfa0",
+                            RoleId = "c8731d41-4b48-4440-bdf6-8f203b2915bd"
                         });
+                    modelBuilder.Entity("EvonixGym.Modelos.Archivo", b =>
+                    {
+                        b.Property<int>("IdArchivo")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArchivo"), 1L, 1);
+
+                        b.Property<int?>("IdPregunta")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdPreguntas")
+                            .HasColumnType("int");
+
+                        b.Property<string>("Image")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("LinkVideo")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<int?>("PreguntaIdPreguntas")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("PreguntaIdPreguntas1")
+                            .HasColumnType("int");
+
+                        b.Property<string>("descripcion")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdArchivo");
+
+                        b.HasIndex("PreguntaIdPreguntas");
+
+                        b.HasIndex("PreguntaIdPreguntas1");
+
+                        b.ToTable("Archivos");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.Archivoresp", b =>
+                    {
+                        b.Property<int>("IdArchivoResp")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArchivoResp"), 1L, 1);
+
+                        b.Property<int?>("IdPregunta")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdRespuesta")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdRespuestaNavigationIdRespuesta")
+                            .HasColumnType("int");
+
+                        b.Property<string>("Image")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("LinkVideo")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("descripcion")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdArchivoResp");
+
+                        b.HasIndex("IdRespuestaNavigationIdRespuesta");
+
+                        b.ToTable("archivoresps");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.ComposicionCorporal", b =>
+                    {
+                        b.Property<int>("IdComposicion")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComposicion"), 1L, 1);
+
+                        b.Property<int?>("CueIdCuestionario")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("CueIdCuestionarioNavigationIdCuestionario")
+                            .HasColumnType("int");
+
+                        b.Property<string>("IdCuestionario")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("Nombre")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdComposicion");
+
+                        b.HasIndex("CueIdCuestionarioNavigationIdCuestionario");
+
+                        b.ToTable("composicionCorporals");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.ComposicionCorporalClient", b =>
+                    {
+                        b.Property<int>("IdCcCliente")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdComposicion")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.HasKey("IdCcCliente");
+
+                        b.HasIndex("IdComposicion");
+
+                        b.ToTable("composicionCorporalClients");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.Cuestionario", b =>
+                    {
+                        b.Property<int>("IdCuestionario")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuestionario"), 1L, 1);
+
+                        b.Property<string>("Descripcion")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<int?>("IdEntrenador")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdEntrenadorNavigationIdEntrenador")
+                            .HasColumnType("int");
+
+                        b.Property<string>("Nombre")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("Tipo")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdCuestionario");
+
+                        b.HasIndex("IdEntrenadorNavigationIdEntrenador");
+
+                        b.ToTable("Cuestionarios");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.CuestionarioClientes", b =>
+                    {
+                        b.Property<int>("IdCuestionarioClientes")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCuestionarioClientes"), 1L, 1);
+
+                        b.Property<int?>("IdCliente")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdCuestionario")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.HasKey("IdCuestionarioClientes");
+
+                        b.HasIndex("IdCliente");
+
+                        b.HasIndex("IdCuestionario");
+
+                        b.ToTable("CuestionarioClientes");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.Perimetro", b =>
+                    {
+                        b.Property<int>("IdPerimetro")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPerimetro"), 1L, 1);
+
+                        b.Property<string>("Descripcion")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("Nombre")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.Property<string>("UnidadDeMedida")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdPerimetro");
+
+                        b.ToTable("Perimetros");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.PerimetroDelCliente", b =>
+                    {
+                        b.Property<int>("IdPerimetroCliente")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPerimetroCliente"), 1L, 1);
+
+                        b.Property<int?>("IdCliente")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdPerimetro")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.Property<int?>("MedidaActual")
+                            .HasColumnType("int");
+
+                        b.Property<double?>("MedidaDeseada")
+                            .HasColumnType("float");
+
+                        b.HasKey("IdPerimetroCliente");
+
+                        b.HasIndex("IdCliente");
+
+                        b.HasIndex("IdPerimetro");
+
+                        b.ToTable("perimetroDelClientes");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.PerimetrosCuestionario", b =>
+                    {
+                        b.Property<int>("IdPerimetrosCuest")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPerimetrosCuest"), 1L, 1);
+
+                        b.Property<int?>("IdCuestionario")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdPerimetro")
+                            .IsRequired()
+                            .HasColumnType("int");
+
+                        b.HasKey("IdPerimetrosCuest");
+
+                        b.HasIndex("IdCuestionario");
+
+                        b.HasIndex("IdPerimetro");
+
+                        b.ToTable("PerimetrosCuestionarios");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Modelos.Pregunta", b =>
+                    {
+                        b.Property<int>("IdPreguntas")
+                            .ValueGeneratedOnAdd()
+                            .HasColumnType("int");
+
+                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPreguntas"), 1L, 1);
+
+                        b.Property<int?>("IdCuestionario")
+                            .HasColumnType("int");
+
+                        b.Property<int?>("IdCuestionarioNavigationIdCuestionario")
+                            .HasColumnType("int");
+
+                        b.Property<string>("Pregunta1")
+                            .HasColumnType("nvarchar(max)");
+
+                        b.HasKey("IdPreguntas");
+
+                        b.HasIndex("IdCuestionarioNavigationIdCuestionario");
+
+                        b.ToTable("Preguntas");
+                    });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Respuestum", b =>
+                {
+                    b.Property<int>("IdRespuesta")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRespuesta"), 1L, 1);
+
+                    b.Property<int?>("IdPregunta")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdPreguntas")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdPreguntasNavigationIdPreguntas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Respuesta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdRespuesta");
+
+                    b.HasIndex("IdPreguntasNavigationIdPreguntas");
+
+                    b.ToTable("Respuesta");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -622,67 +943,85 @@ namespace EvonixGym.Data.Migrations
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.Ejercicio", b =>
+                    {
+                        b.HasOne("EvonixGym.Data.Modelos.Nivel", "Nivel")
+                            .WithMany("Ejercicios")
+                            .HasForeignKey("NivelId")
+                            .OnDelete(DeleteBehavior.Cascade)
+                            .IsRequired();
 
-            modelBuilder.Entity("EvonixGym.Data.Modelos.Ejercicio", b =>
+                        b.Navigation("Nivel");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.EquipamientoEjercicio", b =>
+                    {
+                        b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
+                            .WithMany("EquipamientoEjercicios")
+                            .HasForeignKey("IdEjercicio")
+                            .OnDelete(DeleteBehavior.Cascade)
+                            .IsRequired();
+
+                        b.HasOne("EvonixGym.Data.Modelos.Equipamiento", "IdEquipamientoNavigation")
+                            .WithMany("EquipamientoEjercicios")
+                            .HasForeignKey("IdEquipamiento")
+                            .OnDelete(DeleteBehavior.Cascade)
+                            .IsRequired();
+
+                        b.Navigation("IdEjercicioNavigation");
+
+                        b.Navigation("IdEquipamientoNavigation");
+                    });
+
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.MusculoEjercicio", b =>
+                    {
+                        b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
+                            .WithMany("MusculoEjercicios")
+                            .HasForeignKey("IdEjercicio")
+                            .OnDelete(DeleteBehavior.Cascade)
+                            .IsRequired();
+
+                        b.HasOne("EvonixGym.Data.Modelos.Musculo", "IdMusculoNavigation")
+                            .WithMany("MusculoEjercicios")
+                            .HasForeignKey("IdMusculo")
+                            .OnDelete(DeleteBehavior.Cascade)
+                            .IsRequired();
+
+                        b.Navigation("IdEjercicioNavigation");
+
+                        b.Navigation("IdMusculoNavigation");
+                    });
+
+
+
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.PasosEjercicio", b =>
+                    {
+                        b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
+                            .WithMany("PasosEjercicios")
+                            .HasForeignKey("IdEjercicioNavigationIdEjercicio");
+
+                        b.Navigation("IdEjercicioNavigation");
+                    });
+
+            modelBuilder.Entity("EvonixGym.Data.Modelos.Cliente", b =>
                 {
-                    b.HasOne("EvonixGym.Data.Modelos.Nivel", "Nivel")
-                        .WithMany("Ejercicios")
-                        .HasForeignKey("NivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("EvonixGym.Data.Modelos.Entrenador", "Entrenador")
+                        .WithMany("Clientes")
+                        .HasForeignKey("EntrenadorIdEntrenador");
 
-                    b.Navigation("Nivel");
+                    b.Navigation("Entrenador");
                 });
 
-            modelBuilder.Entity("EvonixGym.Data.Modelos.EquipamientoEjercicio", b =>
-                {
-                    b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
-                        .WithMany("EquipamientoEjercicios")
-                        .HasForeignKey("IdEjercicio")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.Cliente", b =>
+                    {
+                        b.HasOne("EvonixGym.Data.Modelos.Entrenador", "Entrenador")
+                            .WithMany("Clientes")
+                            .HasForeignKey("EntrenadorIdEntrenador");
 
-                    b.HasOne("EvonixGym.Data.Modelos.Equipamiento", "IdEquipamientoNavigation")
-                        .WithMany("EquipamientoEjercicios")
-                        .HasForeignKey("IdEquipamiento")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdEjercicioNavigation");
-
-                    b.Navigation("IdEquipamientoNavigation");
-                });
-
-            modelBuilder.Entity("EvonixGym.Data.Modelos.MusculoEjercicio", b =>
-                {
-                    b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
-                        .WithMany("MusculoEjercicios")
-                        .HasForeignKey("IdEjercicio")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EvonixGym.Data.Modelos.Musculo", "IdMusculoNavigation")
-                        .WithMany("MusculoEjercicios")
-                        .HasForeignKey("IdMusculo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdEjercicioNavigation");
-
-                    b.Navigation("IdMusculoNavigation");
-                });
-
-            modelBuilder.Entity("EvonixGym.Data.Modelos.PasosEjercicio", b =>
-                {
-                    b.HasOne("EvonixGym.Data.Modelos.Ejercicio", "IdEjercicioNavigation")
-                        .WithMany("PasosEjercicios")
-                        .HasForeignKey("IdEjercicioNavigationIdEjercicio");
-
-                    b.Navigation("IdEjercicioNavigation");
-                });
-
-            modelBuilder.Entity("EvonixGym.Data.Modelos.UsuarioClientes", b =>
-                {
+                        b.Navigation("Entrenador");
+                    });
+                    modelBuilder.Entity("EvonixGym.Data.Modelos.UsuarioClientes", b =>
+                    {
                     b.HasOne("EvonixGym.Data.Modelos.Cliente", "Cliente")
                         .WithMany("UsuarioClientes")
                         .HasForeignKey("IdCliente")
@@ -738,6 +1077,138 @@ namespace EvonixGym.Data.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("EvonixGym.Modelos.Archivo", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Pregunta", null)
+                        .WithMany("Archivos")
+                        .HasForeignKey("PreguntaIdPreguntas");
+
+                    b.HasOne("EvonixGym.Modelos.Pregunta", null)
+                        .WithMany("imagenes")
+                        .HasForeignKey("PreguntaIdPreguntas1");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Archivoresp", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Respuestum", "IdRespuestaNavigation")
+                        .WithMany("Archivoresps")
+                        .HasForeignKey("IdRespuestaNavigationIdRespuesta");
+
+                    b.Navigation("IdRespuestaNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.ComposicionCorporal", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Cuestionario", "CueIdCuestionarioNavigation")
+                        .WithMany("ComposicionCorporals")
+                        .HasForeignKey("CueIdCuestionarioNavigationIdCuestionario");
+
+                    b.Navigation("CueIdCuestionarioNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.ComposicionCorporalClient", b =>
+                {
+                    b.HasOne("EvonixGym.Data.Modelos.Cliente", "Cliente")
+                        .WithMany("ComposicionCorporalClient")
+                        .HasForeignKey("IdCcCliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EvonixGym.Modelos.ComposicionCorporal", "IdComposicionNavigation")
+                        .WithMany("ComposicionCorporalClients")
+                        .HasForeignKey("IdComposicion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("IdComposicionNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Cuestionario", b =>
+                {
+                    b.HasOne("EvonixGym.Data.Modelos.Entrenador", "IdEntrenadorNavigation")
+                        .WithMany("Cuestionarios")
+                        .HasForeignKey("IdEntrenadorNavigationIdEntrenador");
+
+                    b.Navigation("IdEntrenadorNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.CuestionarioClientes", b =>
+                {
+                    b.HasOne("EvonixGym.Data.Modelos.Cliente", "IdClienteNav")
+                        .WithMany("Cuestionarios")
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EvonixGym.Modelos.Cuestionario", "IdCuestionarioNavigation")
+                        .WithMany("CuestionarioClientes")
+                        .HasForeignKey("IdCuestionario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdClienteNav");
+
+                    b.Navigation("IdCuestionarioNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.PerimetroDelCliente", b =>
+                {
+                    b.HasOne("EvonixGym.Data.Modelos.Cliente", "Cliente")
+                        .WithMany("PerimetroDelClientes")
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EvonixGym.Modelos.Perimetro", "IdPerimetroNavigation")
+                        .WithMany("PerimetroDelClientes")
+                        .HasForeignKey("IdPerimetro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("IdPerimetroNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.PerimetrosCuestionario", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Cuestionario", "IdCuestionarioNavigation")
+                        .WithMany("PerimetrosCuestionarios")
+                        .HasForeignKey("IdCuestionario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EvonixGym.Modelos.Perimetro", "Perimetro")
+                        .WithMany("PerimetrosCuestionario")
+                        .HasForeignKey("IdPerimetro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdCuestionarioNavigation");
+
+                    b.Navigation("Perimetro");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Pregunta", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Cuestionario", "IdCuestionarioNavigation")
+                        .WithMany("Pregunta")
+                        .HasForeignKey("IdCuestionarioNavigationIdCuestionario");
+
+                    b.Navigation("IdCuestionarioNavigation");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Respuestum", b =>
+                {
+                    b.HasOne("EvonixGym.Modelos.Pregunta", "IdPreguntasNavigation")
+                        .WithMany("Respuesta")
+                        .HasForeignKey("IdPreguntasNavigationIdPreguntas");
+
+                    b.Navigation("IdPreguntasNavigation");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("EvonixGym.Data.Modelos.Rol", null)
@@ -776,6 +1247,12 @@ namespace EvonixGym.Data.Migrations
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Cliente", b =>
                 {
+                    b.Navigation("ComposicionCorporalClient");
+
+                    b.Navigation("Cuestionarios");
+
+                    b.Navigation("PerimetroDelClientes");
+
                     b.Navigation("UsuarioClientes");
                 });
 
@@ -790,6 +1267,10 @@ namespace EvonixGym.Data.Migrations
 
             modelBuilder.Entity("EvonixGym.Data.Modelos.Entrenador", b =>
                 {
+                    b.Navigation("Clientes");
+
+                    b.Navigation("Cuestionarios");
+
                     b.Navigation("UsuarioEntrenadores");
                 });
 
@@ -820,6 +1301,43 @@ namespace EvonixGym.Data.Migrations
                     b.Navigation("UsuarioEntrenadores");
 
                     b.Navigation("UsuarioRoles");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.ComposicionCorporal", b =>
+                {
+                    b.Navigation("ComposicionCorporalClients");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Cuestionario", b =>
+                {
+                    b.Navigation("ComposicionCorporals");
+
+                    b.Navigation("CuestionarioClientes");
+
+                    b.Navigation("PerimetrosCuestionarios");
+
+                    b.Navigation("Pregunta");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Perimetro", b =>
+                {
+                    b.Navigation("PerimetroDelClientes");
+
+                    b.Navigation("PerimetrosCuestionario");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Pregunta", b =>
+                {
+                    b.Navigation("Archivos");
+
+                    b.Navigation("Respuesta");
+
+                    b.Navigation("imagenes");
+                });
+
+            modelBuilder.Entity("EvonixGym.Modelos.Respuestum", b =>
+                {
+                    b.Navigation("Archivoresps");
                 });
 #pragma warning restore 612, 618
         }

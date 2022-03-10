@@ -1,0 +1,73 @@
+﻿@page "/CrearCliente/{idEntrenador:int}"
+@using EvonixGym.Modelos
+@inject HttpClient Http;
+
+<div class="col-6">
+    <h3>Nombre</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Nombre"  @bind-Value=cliente.Nombre/>
+</div>
+<div class="col-6">
+    <h3>Apellido</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Apellido"  @bind-Value=cliente.Apellido/>
+</div>
+    <h4>Dni</h4>
+<div class="col-6">
+<RadzenTextBox Class="w-300" Data= "@cliente.Dni"  @bind-Value=cliente.Dni/>
+</div>
+<div class="col-6">
+    <h3>Telefono</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Telefono"  @bind-Value=cliente.Telefono/>
+</div>
+<div class="col-6">
+ <RadzenCard>
+      <h3 class="mb-4">Fecha nacimiento</h3>
+      <RadzenDatePicker @bind-Value=@cliente.Fechanacimiento DateFormat="d" Change=@(args => guardarNacimientoEntrenador(args)) Class="w-100" />
+ </RadzenCard>
+ </div>
+<div class="col-6">
+    <h3>CP</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Cp"  @bind-Value=cliente.Cp/>
+</div>
+<div class="col-6">
+    <h3>Municipio</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Municipio"  @bind-Value=cliente.Municipio/>
+</div>
+<div class="col-6">
+    <h3>Provincia</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Provincia"  @bind-Value=cliente.Provincia/>
+</div>
+<div class="col-6">
+    <h3>Sexo</h3>
+<RadzenTextBox Class="w-300" Data= "@cliente.Sexo"  @bind-Value=cliente.Sexo/>
+</div>
+    <div class="col-lg-2 p-3">
+       <RadzenButton Text="Guardar" Class="w-100" Click=@guardarCliente/>
+    </div>
+
+
+
+
+
+@code{
+    [Parameter]
+    public int idEntrenador { get; set; } = 0;
+    private Cliente cliente = new Cliente();
+
+
+    public void guardarNacimientoEntrenador(DateTime? value)
+    {
+        cliente.Fechanacimiento = value;
+
+    }
+
+    public async Task guardarCliente()
+    {
+        cliente.IdEntrenador = idEntrenador;
+        HttpResponseMessage result = null;
+        result = await Http.PostAsJsonAsync("https://localhost:7184/api/Clientes", cliente);
+        return;
+    }
+
+
+
+}

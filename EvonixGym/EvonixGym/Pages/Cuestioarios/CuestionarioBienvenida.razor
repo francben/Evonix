@@ -1,0 +1,388 @@
+﻿@page "/Bienvenido"
+@inject HttpClient http;
+@using EvonixGym.Modelos
+@inject IHttpClientFactory ClientFactory
+@inject ApplicationDbContext dbcontext 
+@using System.Text.Json
+@using System.Text.Json.Serialization;
+
+
+
+
+
+
+<PageTitle>Bienvenido</PageTitle>
+
+           <RadzenCard class="m-3">
+                <h3 class="h5">Crear Cuestionario</h3>
+                <div class="d-flex flex-row">
+                    <div> 
+                  </div>
+                </div>
+            </RadzenCard>
+
+@if (!enviado)
+{
+
+     <RadzenCard class="m-3">
+           <RadzenTextBox placeholder="Nombre del cuestionario"  Class="w-300" Data= "@nombreCuestionario"  @bind-Value=nombreCuestionario/>
+     </RadzenCard>
+
+
+ <RadzenCard class="m-3">          
+    <a>Cliente</a>
+    <!--
+    <RadzenDropDown AllowClear="true" TValue="Exercise" Class="w-100" 
+                                            Data=@(clientes)  TextProperty="Nombre"
+                                           Change=@(args =>asignarCliente(args))  />
+    -->
+     <input @bind ="Cliente" />
+    <RadzenButton Click=@(args => asignarCliente(Cliente)) Text="Asignar cuestionario" ButtonStyle="ButtonStyle.Success" />
+     
+        @if(clientes.Count > 0)
+        {
+            <span>Este cuestionario se asignara a:</span>
+            @foreach(var c in clientes)
+            { 
+                <li>@c.Nombre</li>
+                 <RadzenButton Click=@(args => borrarCliente(@c)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+                
+            }
+        }
+        <ul>
+        
+        @foreach (var p in preguntas)
+        {
+            @if (!p.Pregunta1.Equals(""))
+            {
+                <li>@p.Pregunta1</li>
+                @if (p.imagenes != null)
+                {
+                    @foreach (var imageDataUrl in p.imagenes)
+                    {
+                        <img class="rounded m-1" src= "@imageDataUrl.Image" />
+                            <a>@imageDataUrl.descripcion</a>
+
+                    }
+
+                }
+             <RadzenButton Click=@(args => borrarPregunta(p)) Text="borrar" ButtonStyle="ButtonStyle.Danger" />
+
+            }
+
+        }
+
+    </ul>
+
+         <RadzenCard > 
+         <span>Nueva Pregunta</span>
+    <InputFile OnChange=" OnInputFileChange" multiple /> 
+    <RadzenButton ButtonStyle="ButtonStyle.Light" Click=@agregarVideo>Cargar video</RadzenButton>
+
+            @if (cargarVideo ||imagenCargada )
+            {
+                @if(cargarVideo){
+                   <RadzenTextBox placeholder="Agregar link de video"  Class="w-300" Data= "@video"  @bind-Value=video/>
+                }
+                   <RadzenTextArea Class="w-100"  @bind-Value=descripcionImage placeholder="Descripcion del archivo"/>
+
+            }
+    
+    <input  placeholder="nueva pregunta.." @bind="textpregunta"/>
+
+    @if (!preguntaEnviada)
+    {
+        
+    }else{
+
+        <button type ="submit"@onclick="Guardar">Confirmar</button>
+    }
+
+         </RadzenCard > 
+    <button type ="submit"@onclick="GuardarCuestionario">Guardar Cuestionario</button>
+
+     </RadzenCard > 
+}else{
+
+    <h3>Enviaste este cuestionario a</h3>
+      @if(clientes.Count > 0)
+        {
+            @foreach(var c in clientes)
+            { 
+                <h3>@c</h3>                
+            }
+        }
+    <ul>
+        <RadzenCard > 
+        @foreach (var p in preguntas)
+        {
+            @if (p.Pregunta1 != null)
+            {
+                <li>@p.Pregunta1</li>
+                @if (p.imagenes != null)
+                {
+                    @foreach (var imageDataUrl in p.imagenes)
+                    {
+                        <img class="rounded m-1" src= "@imageDataUrl.Image" />
+                        <a>@imageDataUrl.descripcion</a>
+
+                    }
+
+                     @foreach (var c in cuestionarios)
+                     
+                    {
+                       <li>@c.Nombre </li>
+                    }
+
+                }
+            }
+        }
+        </RadzenCard > 
+
+         </ul>
+          <button type ="submit"@onclick ="volverARellenar"> Crear nuevo cuestionario</button>
+         
+
+    
+
+    @code{
+    private Cuestionario cuestionario { get; set; } = new Cuestionario();
+
+    private int idCuestionario=0;
+
+    private IEnumerable<Cuestionario> cuestionarios { get; set; } = Array.Empty<Cuestionario>();
+
+    private Pregunta pregunta { get; set; } = new Pregunta();
+
+    private List<Pregunta> preguntas { get; set; } = new();
+
+    private List<Archivo> imageDataUrls = new ();
+
+    private string textpregunta = "";
+
+    private string descripcionImage = "";
+
+    private Cliente Cliente = new();
+
+    private List<Cliente> clientes = new() ;
+
+    private Boolean enviado = false;
+
+    private Boolean preguntaEnviada = false;
+
+    private Boolean imagenCargada = false;
+
+    private Archivo imageDataUrl = new();
+
+    public string descripcionVideo = "";
+
+    public string video = "";
+
+    private string errorMessage;
+
+    private string nombreCuestionario = "";
+
+    private Boolean cargarVideo = false;
+
+    //Guardamos el cuestioario completo, POST de CuestioarioDetalle (tabla intermediaa entre cliente y
+    //cuestioario), se recorre la lista de preguntas y se hace POST de cada una, en cada pregunta se
+    //guardan sus imagenes en caso de que las tengan
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        preguntaEnviada = true;
+      //  clientes = await http.GetFromJsonAsync<List<Cliente>>("https://localhost:7184/api/Clientes");
+
+    }
+
+
+    private async Task GuardarCuestionario()
+    {
+        //guardamos tabla intermedia 
+        if(Cliente != null)
+        {
+
+            enviado = true;
+        }
+
+        var  postBodyCuest = new { Nombre = nombreCuestionario };
+        var responseCuest = await http.PostAsJsonAsync("https://localhost:7195/api/Cuestionarios", postBodyCuest);
+        var  cuestionario = await responseCuest.Content.ReadFromJsonAsync<Cuestionario>();
+
+        idCuestionario = cuestionario.IdCuestionario;
+
+        foreach (var c in clientes)
+        {
+            var  postBody = new { IdCuestionario = cuestionario.IdCuestionario, IdCliente = c};
+            var response = await http.PostAsJsonAsync("https://localhost:7195/api/CuestioarioClientes", postBody);
+            var  cuestioarioDetalle = await response.Content.ReadFromJsonAsync<CuestionarioClientes>();
+
+        }
+
+        //Guardo cada pregunta             
+
+        foreach (var p in preguntas)
+        {
+            var postBody = new { IdCuestionario = idCuestionario, Pregunta = p.Pregunta1, respondido = false };
+            using var response = await http.PostAsJsonAsync("https://localhost:7195/api/Preguntas", postBody);
+
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+
+                errorMessage = response.ReasonPhrase;
+                Console.WriteLine($"There was an error! {errorMessage}");
+                return;
+            }
+
+
+            pregunta = await response.Content.ReadFromJsonAsync<Pregunta>();
+            foreach (var i in imageDataUrls){
+
+                var postBodyData = new {IdPregunta = pregunta.IdPreguntas, image= i.IdArchivo };
+                using var responseData = await http.PostAsJsonAsync("https://localhost:7195/api/Preguntas",  postBodyData);
+
+
+            }
+
+
+        }
+
+        preguntaEnviada = true;
+
+    }
+
+    public  void agregarVideo(){
+        cargarVideo = true;
+
+
+    }
+
+    public void asignarCliente(Object o)
+    {
+
+        Cliente c = (Cliente) o;
+
+        if (c != null && !clientes.Contains(c))
+        {
+            clientes.Add(c);
+        }
+    }
+
+
+    public void borrarCliente(Cliente id)
+    {
+        if (id != null)
+        {
+            clientes.Remove(id);
+        }
+    }
+
+
+    public void borrarPregunta(Pregunta pregunta)
+    {
+        preguntas.Remove(pregunta);
+    }
+
+
+    
+
+
+
+
+    //Asigo los atributos a las preguntas y la guardo en la lista de preguntas
+    private async void Guardar()
+    {
+        if (!textpregunta.Equals(""))
+        {
+
+            pregunta.Pregunta1 = textpregunta;
+            pregunta.IdCuestionario = cuestionario.IdCuestionario;
+
+
+            if (imageDataUrls.Count > 0 && imageDataUrl.Image!=null)
+            {
+                imageDataUrl.descripcion = descripcionImage;
+                imageDataUrl.LinkVideo = video;
+                pregunta.imagenes = imageDataUrls;
+
+            }
+            preguntas.Add(pregunta);
+
+            imagenCargada = false;
+
+            descripcionImage = "";
+
+            video = "";
+
+            pregunta = new Pregunta();
+
+            imageDataUrls = new List<Archivo>();
+
+            preguntaEnviada = false;
+
+        }
+
+
+    }
+
+    public void volverARellenar()
+    {
+
+        pregunta = new Pregunta();
+        imageDataUrls = new List<Archivo>();
+        preguntas = new();
+        enviado = false;
+
+    }
+
+
+
+
+
+
+    //Metodo para manejar imagenes
+    public async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var maxAllowedFiles = 3;
+        var format = "image/png";
+
+        foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
+        {
+
+
+            var resizeFile = await imageFile.RequestImageFileAsync(format, 200, 200);
+            var buffer = new byte[resizeFile.Size];
+
+            await resizeFile.OpenReadStream().ReadAsync(buffer);
+
+            imageDataUrl = new();
+            imageDataUrl.Image = $"data:{format}; base64,{Convert.ToBase64String(buffer)}";
+
+            if (imageDataUrl != null)
+            {
+
+                imageDataUrls.Add(imageDataUrl);
+
+                pregunta.imagenes = imageDataUrls;
+
+                imagenCargada = true;
+            }
+
+        }
+           
+
+
+
+        }
+    }
+
+    
+
+   
+
+   
+}
+

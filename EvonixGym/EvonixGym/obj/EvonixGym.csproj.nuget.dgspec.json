@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\EvonixGym.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\Escritorio Dali\\gymtem\\gum\\EvonixGym\\EvonixGym\\EvonixGym.csproj": {}
   },
   "projects": {
-    "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\EvonixGym.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\Escritorio Dali\\gymtem\\gum\\EvonixGym\\EvonixGym\\EvonixGym.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\EvonixGym.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Escritorio Dali\\gymtem\\gum\\EvonixGym\\EvonixGym\\EvonixGym.csproj",
         "projectName": "EvonixGym",
-        "projectPath": "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\EvonixGym.csproj",
-        "packagesPath": "C:\\Users\\Franc\\.nuget\\packages\\",
-        "outputPath": "C:\\Apps\\meta\\rep\\EvonixGym\\EvonixGym\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\Escritorio Dali\\gymtem\\gum\\EvonixGym\\EvonixGym\\EvonixGym.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\Escritorio Dali\\gymtem\\gum\\EvonixGym\\EvonixGym\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Franc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -103,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

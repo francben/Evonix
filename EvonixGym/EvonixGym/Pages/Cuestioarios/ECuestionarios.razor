@@ -1,0 +1,83 @@
+﻿@page "/Cuestionarios"
+@using EvonixGym.Data.Modelos
+@using EvonixGym.Modelos
+@inject HttpClient Http;
+
+<RadzenButton Click=@(seleccionarBienvenida) Text="Cuestionario Bienvenida" ButtonStyle="ButtonStyle.Secondary" />
+<RadzenButton Click=@(seleccionarRevision) Text="Cuestionario Revision" ButtonStyle="ButtonStyle.Secondary" />
+
+<div>
+
+<a href='@string.Format("https://localhost:7184/cuestionario/1/{0}", @tipo)'> Crear nuevo</a>
+</div>
+
+
+                                        
+
+
+
+    <RadzenDataList WrapItems="true" AllowPaging="false" Data="@todosCuestionarios" TItem="Cuestionario">
+        <Template Context="cuest">
+            <RadzenCard Style="width:300px;">
+                <div class="d-flex flex-row align-items-center">
+                    <div>
+                        <h4 class="mb-0">@(cuest.Nombre + " " )</h4>
+                    </div>
+                </div>
+                <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 1rem 0;" />
+                <div class="row">
+                    <div class="col-md-8 text-truncate">
+                        <b>@(cuest.Descripcion)</b>
+                             <RazdenPanelMenu Click="((args)=>DoNavigation(args))">
+                                 <div>
+                                 <a href='@string.Format("https://localhost:7184/detallescuestionario/{0}", @cuest.IdCuestionario)'> Ver Detalles</a>
+                                                          </div>
+                             </RazdenPanelMenu>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", cuest.Nombre)}") />
+                        <RadzenButton  Text="Borrar" Icon="report" ButtonStyle="ButtonStyle.Danger" />
+                    </div>
+                </div>
+            </RadzenCard>
+        </Template>
+    </RadzenDataList>
+
+
+@code{
+
+    private Boolean revision=false;
+    private Boolean bienvenida = false;
+    private int tipo = 0;
+    public IEnumerable<Cuestionario> todosCuestionarios { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+
+    }
+
+
+    public async Task seleccionarBienvenida()
+    {
+        revision = false;
+        bienvenida = true;
+        tipo = 0;
+        todosCuestionarios = await Http.GetFromJsonAsync<List<Cuestionario>>("https://localhost:7184/api/Cuestionarios/B");
+        todosCuestionarios = todosCuestionarios.ToList();
+        OnInitializedAsync();
+    }
+
+    public async Task seleccionarRevision()
+    {
+        revision = true;
+        bienvenida = false;
+        tipo = 1;
+        todosCuestionarios = await Http.GetFromJsonAsync<List<Cuestionario>>("https://localhost:7184/api/Cuestionarios/R");
+        todosCuestionarios = todosCuestionarios.ToList();
+        OnInitializedAsync();
+    }
+
+
+}

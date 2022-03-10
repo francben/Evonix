@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvonixGym.Modelos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,7 +9,8 @@ namespace EvonixGym.Data.Modelos
     {
         public Entrenador()
         {
-            //Cuestionarios = new HashSet<Cuestionario>();
+            Cuestionarios = new HashSet<Cuestionario>();
+            Clientes = new HashSet<Cliente>();
             //HistorialEntrenamientos = new HashSet<HistorialEntrenamiento>();
             UsuarioEntrenadores = new HashSet<UsuarioEntrenadores>();
         }
@@ -27,7 +29,8 @@ namespace EvonixGym.Data.Modelos
         public int? FechaProxPago { get; set; }
 
        public virtual ICollection<UsuarioEntrenadores> UsuarioEntrenadores { get; set; }
-       //public virtual ICollection<Cuestionario> Cuestionarios { get; set; }
-       //public virtual ICollection<HistorialEntrenamiento> HistorialEntrenamientos { get; set; }
+       public virtual ICollection<Cliente> Clientes { get; set; }
+        public virtual ICollection<Cuestionario> Cuestionarios { get; set; }
+        //public virtual ICollection<HistorialEntrenamiento> HistorialEntrenamientos { get; set; }
     }
 }

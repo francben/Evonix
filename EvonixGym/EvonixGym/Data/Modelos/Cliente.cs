@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvonixGym.Modelos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,13 +10,15 @@ namespace EvonixGym.Data.Modelos
         public Cliente()
         {
             //Estadisticas = new HashSet<Estadistica>();
+            Cuestionarios = new HashSet<CuestionarioClientes>();
             //HistorialEntrenamientos = new HashSet<HistorialEntrenamiento>();
-            //PerimetroDelClientes = new HashSet<PerimetroDelCliente>();
+            PerimetroDelClientes = new HashSet<PerimetroDelCliente>();
             UsuarioClientes = new HashSet<UsuarioClientes>();
+            ComposicionCorporalClient = new HashSet<ComposicionCorporalClient>();
         }
         [Key]
         public int IdCliente { get; set; }
-        public int? Nombre { get; set; }
+        public string? Nombre { get; set; }
         public string Apellido { get; set; }
         public string Dni { get; set; }
         public string Telefono { get; set; }
@@ -29,10 +32,16 @@ namespace EvonixGym.Data.Modelos
         public DateTime? FechaAlta { get; set; }
         public int? IdEntrenamiento { get; set; }
 
+        public int IdEntrenador { get; set; }
+
         //public virtual Entrenamiento IdEntrenamientoNavigation { get; set; }
+        public virtual Entrenador Entrenador{ get; set; }
         public virtual ICollection<UsuarioClientes> UsuarioClientes { get; set; }
         //public virtual ICollection<Estadistica> Estadisticas { get; set; }
         //public virtual ICollection<HistorialEntrenamiento> HistorialEntrenamientos { get; set; }
-        //public virtual ICollection<PerimetroDelCliente> PerimetroDelClientes { get; set; }
+        public virtual ICollection<PerimetroDelCliente> PerimetroDelClientes { get; set; }
+        public virtual ICollection<ComposicionCorporalClient> ComposicionCorporalClient { get; set; }
+
+        public virtual ICollection<CuestionarioClientes> Cuestionarios { get; set; }
     }
 }
